@@ -19,6 +19,20 @@ const renderGraphBar = (item, index, frameConfig) => {
 const SPEED = 50;
 
 
+const arrDifferent = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) {
+    return true;
+  }
+
+  for (let i=0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return true
+    }
+  }
+
+  return false;
+}
+
 
 class SortVisualiser extends React.Component {
   constructor(props) {
@@ -32,6 +46,20 @@ class SortVisualiser extends React.Component {
         ordered: [],
       }
     }
+  }
+
+
+  componentDidUpdate(prevProps) {
+      if (arrDifferent(prevProps.items, this.props.items)) {
+        this.setState({
+          currentFrame: {
+            positioning: this.props.items,
+            comparison: [],
+            swappers: [],
+            ordered: [],
+          }
+        })
+      }
   }
 
 
