@@ -3,12 +3,10 @@
 }
 
 .App-logo {
-  height: 40vmin;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,4 +17,37 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.graph-container {
+  border: 1px solid red;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.graph-bar {
+  margin: 0 1px;
+  background-color: blue;
+  flex: 1;
+}
+
+.graph-bar--comparison {
+  background-color: green;
+}
+
+.graph-bar--swap {
+  background-color: red;
+}
+
+.graph-bar--ordered {
+  background-color: purple;
+}
+
+
+
+main {
+  margin: 0 5%;
 }
