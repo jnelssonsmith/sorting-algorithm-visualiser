@@ -1,8 +1,6 @@
-
-
 /**
- * 
- * @param {number[]} items 
+ * Bubble sort
+ * @param {number[]} items - The number array to be sorted using bubble sort
  */
 const bubbleSortVisualiser = (items) => {
   let frames = [];
@@ -13,6 +11,7 @@ const bubbleSortVisualiser = (items) => {
     positioning: items,
     comparison: [],
     swappers: [],
+    highlight: [],
     ordered: orderedItems,
   })
 
@@ -27,6 +26,7 @@ const bubbleSortVisualiser = (items) => {
         positioning: [...mutableArr],
         comparison: [k, k + 1],
         swappers: [],
+        highlight: [],
         ordered: [...orderedItems],
       })
 
@@ -39,6 +39,7 @@ const bubbleSortVisualiser = (items) => {
           positioning: [...mutableArr],
           comparison: [],
           swappers: [k, k + 1],
+          highlight: [],
           ordered: [...orderedItems],
         })
 
@@ -52,6 +53,7 @@ const bubbleSortVisualiser = (items) => {
           positioning: [...mutableArr],
           comparison: [],
           swappers: [k, k + 1],
+          highlight: [],
           ordered: [...orderedItems],
         })
         
@@ -63,6 +65,7 @@ const bubbleSortVisualiser = (items) => {
           positioning: [...mutableArr],
           comparison: [k, k + 1],
           swappers: [],
+          highlight: [],
           ordered: [...orderedItems],
         })
       }
@@ -77,6 +80,7 @@ const bubbleSortVisualiser = (items) => {
       positioning: [...mutableArr],
       comparison: [],
       swappers: [],
+      highlight: [],
       ordered: [...orderedItems],
     })
   }
@@ -84,6 +88,11 @@ const bubbleSortVisualiser = (items) => {
   return frames;
 }
 
+
+/**
+ * Utility function for swaping two elements in an array
+ * NB: modifies given array, is not immutable
+ */
 const swapElements = (arr, indexA, indexB) => {
   const temp = arr[indexA];
   arr[indexA] = arr[indexB];

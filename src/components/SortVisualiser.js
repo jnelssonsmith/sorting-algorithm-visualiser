@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import bubbleSortVisualiser from '../algorithms/bubbleSortVisualiser';
+import selectionSortVisualiser from '../algorithms/selectionSortVisualiser';
 
 const renderGraphBar = (item, index, frameConfig) => {
 
@@ -10,13 +11,14 @@ const renderGraphBar = (item, index, frameConfig) => {
     'graph-bar--comparison': frameConfig && frameConfig.comparison.includes(index),
     'graph-bar--swap': frameConfig && frameConfig.swappers.includes(index),
     'graph-bar--ordered': frameConfig && frameConfig.ordered.includes(index),
+    'graph-bar--highlight': frameConfig && frameConfig.highlight.includes(index),
   })
 
   return <div key={`${index}-${classes}-${item}`} style={{height: `${item}%`}} className={classes}></div>
   
 }
 
-const SPEED = 50;
+const SPEED = 200;
 
 
 const arrDifferent = (arr1, arr2) => {
@@ -43,9 +45,14 @@ class SortVisualiser extends React.Component {
         positioning: props.items,
         comparison: [],
         swappers: [],
+        highlight: [],
         ordered: [],
-      }
+      },
+      visualising: false,
     }
+
+
+    this.animations = []
   }
 
 
@@ -56,6 +63,7 @@ class SortVisualiser extends React.Component {
             positioning: this.props.items,
             comparison: [],
             swappers: [],
+            highlight: [],
             ordered: [],
           }
         })
@@ -63,22 +71,65 @@ class SortVisualiser extends React.Component {
   }
 
 
+  getVisualiser(visualiser) {
+    console.log(visualiser)
+    switch (visualiser) {
+      case 'BUBBLE':
+        return bubbleSortVisualiser;
+      case 'SELECTION':
+        return selectionSortVisualiser;
+      default:
+        return bubbleSortVisualiser;
+    }
+  }
+
+  clearAnimations() {
+    this.animations.forEach(anim => {
+      clearTimeout(anim);
+    })
+    this.animations = [];
+  }
+
+
   handleVisualise = () => {
-    const frames = bubbleSortVisualiser(this.props.items);
+    this.animations = [];
+    const frames = this.getVisualiser(this.props.algorithm)(this.props.items);
+  
+    this.setState({
+      visualising: true,
+    })
+
     frames.forEach((frame, index) => {
-      setTimeout(() => {
+      const anim = setTimeout(() => {
         requestAnimationFrame(() => {
-          this.setState({
+
+          let stateUpdate = {
             currentFrame: frame
-          })
+          }
+
+          if (index === (frames.length - 1)) {
+            stateUpdate.visualising = false;
+          }
+
+          this.setState(stateUpdate)
         })
       }, index * SPEED)
+
+      this.animations.push(anim);
     })
+  }
+
+  handleStop = () => {
+    this.clearAnimations();
+    this.setState({
+      visualising: false,
+    })
+    this.props.onReset();
   }
 
 
   render() {
-    const { currentFrame } = this.state;
+    const { currentFrame, visualising } = this.state;
     return (
       <>
         <div class="graph-container">
@@ -86,7 +137,8 @@ class SortVisualiser extends React.Component {
             currentFrame.positioning.map((item, i) => renderGraphBar(item, i, currentFrame))
           }
         </div>
-        <button onClick={this.handleVisualise}>Visualise</button>
+        <button disabled={visualising} onClick={this.handleVisualise}>Visualise</button>
+        <button disabled={!visualising} onClick={this.handleStop}>Stop</button>
       </>
     )
   }
@@ -94,13 +146,3 @@ class SortVisualiser extends React.Component {
 
 
 export default SortVisualiser;
-
-/**
- * Concept: 
- * 
- * 1. generate a random array of user selected variable length of random numbers between some given 
- * bounds
- * 2. based on sorting algorithm chosen by user, sort array and keep track of the steps taken and return
- * array of animations
- * 3. loop through animation states
- */

@@ -4,19 +4,21 @@ const ControlPanel = ({
   onSizeChange,
   onAlgorithmChange,
   onRandomise,
+  disabled,
 }) => {
   return (
     <section>
       <label>
         Sorting Algorithm
-      <select onChange={onAlgorithmChange}>
+      <select disabled={disabled} onChange={onAlgorithmChange}>
         <option selected value="BUBBLE">Bubble Sort</option>
+        <option value="SELECTION">Selection Sort</option>
       </select>
       </label>
       <br />
       <label>
         Array Length
-      <select onChange={onSizeChange}>
+      <select disabled={disabled} onChange={onSizeChange}>
         <option value="10">10</option>
         <option selected value="20">20</option>
         <option value="50">50</option>
@@ -24,7 +26,8 @@ const ControlPanel = ({
         <option value="200">200</option>
       </select>
       </label>
-      <button onClick={onRandomise}>Randomise</button>
+      <br />
+      <button disabled={disabled} onClick={onRandomise}>Randomise</button>
     </section>
   )
 }

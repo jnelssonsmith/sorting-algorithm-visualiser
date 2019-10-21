@@ -11,7 +11,6 @@ const getRandomArr = (length) => {
 const INITIAL_ALGORITHM = "BUBBLE";
 const INITIAL_SIZE = 20;
 
-// 10, 20, 50, 100, 200
 class App extends React.Component {
 
   constructor(props) {
@@ -21,6 +20,7 @@ class App extends React.Component {
       items: getRandomArr(INITIAL_SIZE),
       size: INITIAL_SIZE,
       algorithm: INITIAL_ALGORITHM,
+      visualisationInProgress: false,
     }
   }
 
@@ -33,8 +33,11 @@ class App extends React.Component {
     })
   }
 
-  handleAlgorithmChange = (algorithm) => {
-
+  handleAlgorithmChange = (e) => {
+    const algorithm = e.target.value;
+    this.setState({
+      algorithm,
+    })
   }
 
   handleRandomise = () => {
@@ -44,7 +47,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { items } = this.state;
+    const { items, algorithm, visualisationInProgress } = this.state;
     console.log(items.length)
     return (
       <div className="App">
@@ -53,11 +56,12 @@ class App extends React.Component {
         </header>
         <main>
           <ControlPanel
+            disabled={visualisationInProgress}
             onSizeChange={this.handleSizeChange}
             onAlgorithmChange={this.handleAlgorithmChange}
             onRandomise={this.handleRandomise}          
           />
-          <SortVisualiser items={items}></SortVisualiser>
+          <SortVisualiser onReset={this.handleRandomise} algorithm={algorithm} items={items}></SortVisualiser>
         </main>
       </div>
     );

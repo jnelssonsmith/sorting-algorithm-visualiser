@@ -46,6 +46,10 @@
   background-color: purple;
 }
 
+.graph-bar--highlight {
+  background-color: yellow;
+}
+
 
 
 main {
