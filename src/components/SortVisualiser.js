@@ -18,7 +18,7 @@ const renderGraphBar = (item, index, frameConfig) => {
   
 }
 
-const SPEED = 200;
+const SPEED = 50;
 
 
 const arrDifferent = (arr1, arr2) => {
@@ -131,15 +131,17 @@ class SortVisualiser extends React.Component {
   render() {
     const { currentFrame, visualising } = this.state;
     return (
-      <>
-        <div class="graph-container">
+      <div className="graph-container">
+        <div className="graph">
           { 
             currentFrame.positioning.map((item, i) => renderGraphBar(item, i, currentFrame))
           }
         </div>
-        <button disabled={visualising} onClick={this.handleVisualise}>Visualise</button>
-        <button disabled={!visualising} onClick={this.handleStop}>Stop</button>
-      </>
+        <div className="visualisation-controls">
+          <button disabled={visualising} onClick={this.handleVisualise}>Visualise</button>
+          <button disabled={!visualising} onClick={this.handleStop}>Stop</button>
+        </div>
+      </div>
     )
   }
 }

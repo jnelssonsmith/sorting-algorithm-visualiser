@@ -1,36 +1,49 @@
+body {
+  background-color: #F6F9FC
+}
 .App {
   text-align: center;
 }
 
-.App-logo {
-}
 
-.App-header {
-  background-color: #282c34;
+.control-panel {
+  box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
+  background: #FFF;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 40px;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #09d3ac;
+.control-panel > label {
+  margin-right: 20px;
 }
+
+.visualisation-controls {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
 
 .graph-container {
-  border: 1px solid red;
-  width: 100%;
-  height: 500px;
+  box-shadow: 0 13px 27px -5px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
+  background: #FFF;
+  border-radius: 8px;
+  padding: 20px 80px;
+}
+
+.graph {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  width: 100%;
+  height: 500px;
 }
 
 .graph-bar {
   margin: 0 1px;
-  background-color: blue;
+  background-color: #8898aa;
   flex: 1;
 }
 
@@ -51,7 +64,14 @@
 }
 
 
+.layout-l {
+  width: 100%;
+  margin: 0 80px;
+  max-width: 1400px;
+}
+
 
 main {
-  margin: 0 5%;
+  display: flex;
+  justify-content: center;
 }

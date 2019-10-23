@@ -1,0 +1,24 @@
+{
+  "BUBBLE": {
+    "space": {
+      "worstCase": {
+        "value": "",
+        "description": ""
+      },
+      "bestCase": {
+        "value": "",
+        "description": ""
+      }
+    },
+    "time": {
+      "worstCase": {
+        "value": "",
+        "description": ""
+      },
+      "bestCase": {
+        "value": "",
+        "description": ""
+      }
+    }
+  }
+}

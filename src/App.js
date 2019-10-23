@@ -51,17 +51,19 @@ class App extends React.Component {
     console.log(items.length)
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>Test</h1>
+        <header className="">
+          <h1>Sorting Algorithm Visualiser</h1>
         </header>
         <main>
-          <ControlPanel
-            disabled={visualisationInProgress}
-            onSizeChange={this.handleSizeChange}
-            onAlgorithmChange={this.handleAlgorithmChange}
-            onRandomise={this.handleRandomise}          
-          />
-          <SortVisualiser onReset={this.handleRandomise} algorithm={algorithm} items={items}></SortVisualiser>
+          <div className="layout-l">
+            <ControlPanel
+              disabled={visualisationInProgress}
+              onSizeChange={this.handleSizeChange}
+              onAlgorithmChange={this.handleAlgorithmChange}
+              onRandomise={this.handleRandomise}          
+            />
+            <SortVisualiser onReset={this.handleRandomise} algorithm={algorithm} items={items}></SortVisualiser>
+          </div>
         </main>
       </div>
     );

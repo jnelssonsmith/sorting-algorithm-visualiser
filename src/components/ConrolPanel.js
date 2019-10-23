@@ -7,7 +7,7 @@ const ControlPanel = ({
   disabled,
 }) => {
   return (
-    <section>
+    <section class="control-panel">
       <label>
         Sorting Algorithm
       <select disabled={disabled} onChange={onAlgorithmChange}>
@@ -15,7 +15,6 @@ const ControlPanel = ({
         <option value="SELECTION">Selection Sort</option>
       </select>
       </label>
-      <br />
       <label>
         Array Length
       <select disabled={disabled} onChange={onSizeChange}>
@@ -26,7 +25,6 @@ const ControlPanel = ({
         <option value="200">200</option>
       </select>
       </label>
-      <br />
       <button disabled={disabled} onClick={onRandomise}>Randomise</button>
     </section>
   )
