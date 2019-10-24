@@ -18,7 +18,7 @@ const renderGraphBar = (item, index, frameConfig) => {
   
 }
 
-const SPEED = 50;
+const SPEED = 16;
 
 
 const arrDifferent = (arr1, arr2) => {
@@ -47,6 +47,8 @@ class SortVisualiser extends React.Component {
         swappers: [],
         highlight: [],
         ordered: [],
+        comparisonCount: 0,
+        swapCount: 0,
       },
       visualising: false,
     }
@@ -65,6 +67,8 @@ class SortVisualiser extends React.Component {
             swappers: [],
             highlight: [],
             ordered: [],
+            comparisonCount: 0,
+            swapCount: 0,
           }
         })
       }
@@ -94,7 +98,7 @@ class SortVisualiser extends React.Component {
   handleVisualise = () => {
     this.animations = [];
     const frames = this.getVisualiser(this.props.algorithm)(this.props.items);
-  
+    console.log(frames);
     this.setState({
       visualising: true,
     })
@@ -131,11 +135,21 @@ class SortVisualiser extends React.Component {
   render() {
     const { currentFrame, visualising } = this.state;
     return (
-      <div className="graph-container">
-        <div className="graph">
-          { 
-            currentFrame.positioning.map((item, i) => renderGraphBar(item, i, currentFrame))
-          }
+      <div className="visualiser-container">
+        <div className="algorithm-details">
+          <h2>Bubble Sort</h2>
+          <p>Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.</p>
+        </div>
+        <div className="operations-container">
+          <p>Comparisons: {currentFrame.comparisonCount}</p>
+          <p>Swaps: {currentFrame.swapCount}</p>
+        </div>
+        <div className="graph-container">
+          <div className="graph">
+            { 
+              currentFrame.positioning.map((item, i) => renderGraphBar(item, i, currentFrame))
+            }
+          </div>
         </div>
         <div className="visualisation-controls">
           <button disabled={visualising} onClick={this.handleVisualise}>Visualise</button>

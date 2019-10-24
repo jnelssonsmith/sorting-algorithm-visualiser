@@ -65,6 +65,12 @@ class App extends React.Component {
             <SortVisualiser onReset={this.handleRandomise} algorithm={algorithm} items={items}></SortVisualiser>
           </div>
         </main>
+        <footer>
+          <p>
+            Made with <i class="fas fa-heart" /> in Melbourne, Australia
+          </p>
+          <p>Copyright © 2019 Josh Nelsson-Smith</p>
+          </footer>
       </div>
     );
   }

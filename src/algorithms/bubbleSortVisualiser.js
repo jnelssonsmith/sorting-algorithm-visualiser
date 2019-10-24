@@ -5,6 +5,8 @@
 const bubbleSortVisualiser = (items) => {
   let frames = [];
   let orderedItems = [];
+  let comparisonCount = 0;
+  let swapCount = 0;
   
   // push initial frame
   frames.push({
@@ -12,7 +14,9 @@ const bubbleSortVisualiser = (items) => {
     comparison: [],
     swappers: [],
     highlight: [],
-    ordered: orderedItems,
+    ordered: [...orderedItems],
+    comparisonCount: comparisonCount,
+    swapCount: swapCount
   })
 
   let mutableArr = items.map(i => i);
@@ -28,8 +32,11 @@ const bubbleSortVisualiser = (items) => {
         swappers: [],
         highlight: [],
         ordered: [...orderedItems],
+        comparisonCount: comparisonCount,
+        swapCount: swapCount
       })
 
+      comparisonCount += 1;
       if (mutableArr[k] > mutableArr[k + 1]) {
         /**
          * The two elements need to swap, so we push a 
@@ -41,10 +48,12 @@ const bubbleSortVisualiser = (items) => {
           swappers: [k, k + 1],
           highlight: [],
           ordered: [...orderedItems],
+          comparisonCount: comparisonCount,
+          swapCount: swapCount
         })
 
         swapElements(mutableArr, k, k + 1);
-
+        swapCount += 1;
         /**
          * Push frame with them after the swap to help indicate 
          * that they have swapped
@@ -55,7 +64,11 @@ const bubbleSortVisualiser = (items) => {
           swappers: [k, k + 1],
           highlight: [],
           ordered: [...orderedItems],
+          comparisonCount: comparisonCount,
+          swapCount: swapCount
         })
+
+        
         
         /**
          * Push comparison frame to show they are now
@@ -67,6 +80,8 @@ const bubbleSortVisualiser = (items) => {
           swappers: [],
           highlight: [],
           ordered: [...orderedItems],
+          comparisonCount: comparisonCount,
+          swapCount: swapCount
         })
       }
     }
@@ -82,6 +97,8 @@ const bubbleSortVisualiser = (items) => {
       swappers: [],
       highlight: [],
       ordered: [...orderedItems],
+      comparisonCount: comparisonCount,
+      swapCount: swapCount
     })
   }
 

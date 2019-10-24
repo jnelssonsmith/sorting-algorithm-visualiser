@@ -5,6 +5,8 @@
 const selectionSortVisualiser = (items) => {
   let frames = [];
   let orderedItems = [];
+  let comparisonCount = 0;
+  let swapCount = 0;
 
   // push initial frame
   frames.push({
@@ -13,6 +15,8 @@ const selectionSortVisualiser = (items) => {
     swappers: [],
     highlight: [],
     ordered: [...orderedItems],
+    comparisonCount: comparisonCount,
+    swapCount: swapCount
   })
 
   let mutableArr = items.map(i => i);
@@ -26,6 +30,8 @@ const selectionSortVisualiser = (items) => {
       swappers: [],
       highlight: [minIndex],
       ordered: [...orderedItems],
+      comparisonCount: comparisonCount,
+      swapCount: swapCount
     })
   
     for (let k = 0 + i + 1; k < mutableArr.length; k++) {
@@ -37,10 +43,13 @@ const selectionSortVisualiser = (items) => {
         swappers: [],
         highlight: [],
         ordered: [...orderedItems],
+        comparisonCount: comparisonCount,
+        swapCount: swapCount
       })
 
       let comparisonEl = mutableArr[k];
 
+      comparisonCount += 1;
       if (comparisonEl < minElement) {
         frames.push({
           positioning: [...mutableArr],
@@ -48,6 +57,8 @@ const selectionSortVisualiser = (items) => {
           swappers: [minIndex, k],
           highlight: [],
           ordered: [...orderedItems],
+          comparisonCount: comparisonCount,
+          swapCount: swapCount
         })
 
         minIndex = k;
@@ -59,6 +70,8 @@ const selectionSortVisualiser = (items) => {
           swappers: [],
           highlight: [minIndex],
           ordered: [...orderedItems],
+          comparisonCount: comparisonCount,
+          swapCount: swapCount
         })
       }
     }
@@ -70,9 +83,12 @@ const selectionSortVisualiser = (items) => {
         swappers: [minIndex, i],
         highlight: [],
         ordered: [...orderedItems],
+        comparisonCount: comparisonCount,
+        swapCount: swapCount
       })
 
       swapElements(mutableArr, minIndex, i);
+      swapCount += 1;
       
       frames.push({
         positioning: [...mutableArr],
@@ -80,6 +96,8 @@ const selectionSortVisualiser = (items) => {
         swappers: [minIndex, i],
         highlight: [],
         ordered: [...orderedItems],
+        comparisonCount: comparisonCount,
+        swapCount: swapCount
       })
     }
 
@@ -90,6 +108,8 @@ const selectionSortVisualiser = (items) => {
       swappers: [],
       highlight: [],
       ordered: [...orderedItems],
+      comparisonCount: comparisonCount,
+      swapCount: swapCount
     })
     
   }
