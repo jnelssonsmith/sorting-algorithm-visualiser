@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import bubbleSortVisualiser from '../algorithms/bubbleSortVisualiser';
 import selectionSortVisualiser from '../algorithms/selectionSortVisualiser';
+import AlgorithmDetailView from './AlgorithmDetailView';
+import algorithmDetails from '../data/algorithm-details.json'
 
 const renderGraphBar = (item, index, frameConfig) => {
 
@@ -132,12 +134,11 @@ class SortVisualiser extends React.Component {
 
   render() {
     const { currentFrame, visualising } = this.state;
+    const { algorithm } = this.props;
+
     return (
       <div className="visualiser-container">
-        <div className="algorithm-details">
-          <h2>Bubble Sort</h2>
-          <p>Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.</p>
-        </div>
+        <AlgorithmDetailView algorithmDetails={algorithmDetails[algorithm]} />
         <div className="operations-container">
           <p>Comparisons: {currentFrame.comparisonCount}</p>
           <p>Swaps: {currentFrame.swapCount}</p>

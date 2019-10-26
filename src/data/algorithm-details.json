@@ -1,0 +1,50 @@
+{
+  "BUBBLE": {
+    "title": "Bubble Sort",
+    "description": "Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.",
+    "space": {
+      "worstCase": {
+        "value": "",
+        "description": ""
+      },
+      "bestCase": {
+        "value": "",
+        "description": ""
+      }
+    },
+    "time": {
+      "worstCase": {
+        "value": "",
+        "description": ""
+      },
+      "bestCase": {
+        "value": "",
+        "description": ""
+      }
+    }
+  },
+  "SELECTION": {
+    "title": "Selection Sort",
+    "description": "In computer science, selection sort is a sorting algorithm, specifically an in-place comparison sort. It has O time complexity, making it inefficient on large lists, and generally performs worse than the similar insertion sort.",
+    "space": {
+      "worstCase": {
+        "value": "",
+        "description": ""
+      },
+      "bestCase": {
+        "value": "",
+        "description": ""
+      }
+    },
+    "time": {
+      "worstCase": {
+        "value": "",
+        "description": ""
+      },
+      "bestCase": {
+        "value": "",
+        "description": ""
+      }
+    }
+  }
+}
