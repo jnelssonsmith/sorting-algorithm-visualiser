@@ -63,8 +63,11 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <header className="">
-          <h1>Sorting Algorithm Visualiser</h1>
+        <header>
+          <div className="layout-l">
+            <h1>Sorting Algorithm Visualiser</h1>
+            <p>A tool to help better understand how sorting algorithms work. Use the control panel below to choose between different algorithms, you can also alter the speed of the animations and the number of items to be sorted. </p>
+          </div>
         </header>
         <main>
           <div className="layout-l">

@@ -20,7 +20,8 @@ body {
 }
 
 h2 {
-  margin: 10px 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .controls {
@@ -104,6 +105,11 @@ h2 {
   max-width: 1400px;
 }
 
+header {
+  display: flex;
+  flex: 1;
+  margin-bottom: 20px;
+}
 
 main {
   display: flex;
