@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import bubbleSortVisualiser from '../algorithms/bubbleSortVisualiser';
 import selectionSortVisualiser from '../algorithms/selectionSortVisualiser';
+import insertionSortVisualiser from '../algorithms/insertionSortVisualiser';
+
 import AlgorithmDetailView from './AlgorithmDetailView';
 import algorithmDetails from '../data/algorithm-details.json'
 
@@ -49,8 +51,7 @@ class SortVisualiser extends React.Component {
         ordered: [],
         comparisonCount: 0,
         swapCount: 0,
-      },
-      visualising: false,
+      }
     }
 
 
@@ -82,6 +83,8 @@ class SortVisualiser extends React.Component {
         return bubbleSortVisualiser;
       case 'SELECTION':
         return selectionSortVisualiser;
+      case 'INSERTION':
+        return insertionSortVisualiser;
       default:
         return bubbleSortVisualiser;
     }
@@ -99,23 +102,20 @@ class SortVisualiser extends React.Component {
     this.animations = [];
     const frames = this.getVisualiser(this.props.algorithm)(this.props.items);
     console.log(frames);
-    this.setState({
-      visualising: true,
-    })
+    this.props.onVisualisationStatusChange(true);
 
     frames.forEach((frame, index) => {
       const anim = setTimeout(() => {
         requestAnimationFrame(() => {
 
-          let stateUpdate = {
-            currentFrame: frame
-          }
-
           if (index === (frames.length - 1)) {
-            stateUpdate.visualising = false;
+            this.props.onVisualisationStatusChange(false);
           }
 
-          this.setState(stateUpdate)
+          this.setState({
+            currentFrame: frame,
+          })
+          
         })
       }, index * this.props.speed)
 
@@ -125,16 +125,14 @@ class SortVisualiser extends React.Component {
 
   handleStop = () => {
     this.clearAnimations();
-    this.setState({
-      visualising: false,
-    })
+    this.props.onVisualisationStatusChange(false);
     this.props.onReset();
   }
 
 
   render() {
-    const { currentFrame, visualising } = this.state;
-    const { algorithm } = this.props;
+    const { currentFrame } = this.state;
+    const { algorithm, visualisationInProgress } = this.props;
 
     return (
       <div className="visualiser-container">
@@ -151,8 +149,8 @@ class SortVisualiser extends React.Component {
           </div>
         </div>
         <div className="visualisation-controls">
-          <button disabled={visualising} onClick={this.handleVisualise}>Visualise</button>
-          <button disabled={!visualising} onClick={this.handleStop}>Stop</button>
+          <button disabled={visualisationInProgress} onClick={this.handleVisualise}>Visualise</button>
+          <button disabled={!visualisationInProgress} onClick={this.handleStop}>Stop</button>
         </div>
       </div>
     )

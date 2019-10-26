@@ -18,25 +18,25 @@ const ControlPanel = ({
   return (
     <section class="control-panel">
       <h2>
-        Control Panel
+        Options
       </h2>
       <div className="controls">
         <div className="control">
           <label>
             Sorting Algorithm
-          <Select className="select" value={algorithmOption} onChange={onAlgorithmChange} options={algorithmOptions} />
+          <Select className="select" isDisabled={disabled} value={algorithmOption} onChange={onAlgorithmChange} options={algorithmOptions} />
           </label>
         </div>
         <div className="control">
           <label>
             Array Length
-          <Select className="select" value={sizeOption} onChange={onSizeChange} options={sizeOptions} />
+          <Select className="select" isDisabled={disabled} value={sizeOption} onChange={onSizeChange} options={sizeOptions} />
           </label>
         </div>
         <div className="control">
           <label>
             Speed
-          <Select className="select" value={speedOption} onChange={onSpeedChange} options={speedOptions} />
+          <Select className="select" isDisabled={disabled} value={speedOption} onChange={onSpeedChange} options={speedOptions} />
           </label>
         </div>
         <button disabled={disabled} onClick={onRandomise}>Randomise</button>

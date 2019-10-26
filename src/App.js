@@ -52,6 +52,12 @@ class App extends React.Component {
     })
   }
 
+  handleVisualisationStatusChange = (isVisualising) => {
+    this.setState({
+      visualisationInProgress: isVisualising
+    })
+  }
+
   render() {
     const { items, algorithmOption, visualisationInProgress, sizeOption, speedOption } = this.state;
 
@@ -72,7 +78,14 @@ class App extends React.Component {
               onAlgorithmChange={this.handleAlgorithmChange}
               onRandomise={this.handleRandomise}          
             />
-            <SortVisualiser onReset={this.handleRandomise} algorithm={algorithmOption.value} speed={speedOption.value} items={items}></SortVisualiser>
+            <SortVisualiser
+              onReset={this.handleRandomise}
+              algorithm={algorithmOption.value}
+              speed={speedOption.value}
+              items={items}
+              visualisationInProgress={visualisationInProgress}
+              onVisualisationStatusChange={this.handleVisualisationStatusChange}
+            />
           </div>
         </main>
         <footer>
