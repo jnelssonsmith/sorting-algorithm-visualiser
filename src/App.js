@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 import SortVisualiser from './components/SortVisualiser';
 import ControlPanel from './components/ConrolPanel';
@@ -63,40 +63,38 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <header>
-          <div className="layout-l">
+        <div className="layout">
+          <header>
             <h1>Sorting Algorithm Visualiser</h1>
             <p>A tool to help better understand how sorting algorithms work. Use the control panel below to choose between different algorithms, you can also alter the speed of the animations and the number of items to be sorted. </p>
-          </div>
-        </header>
-        <main>
-          <div className="layout-l">
+          </header>
+          <main>
             <ControlPanel
-              disabled={visualisationInProgress}
-              speedOption={speedOption}
-              algorithmOption={algorithmOption}
-              sizeOption={sizeOption}
-              onSizeChange={this.handleSizeChange}
-              onSpeedChange={this.handleSpeedChange}
-              onAlgorithmChange={this.handleAlgorithmChange}
-              onRandomise={this.handleRandomise}          
-            />
-            <SortVisualiser
-              onReset={this.handleRandomise}
-              algorithm={algorithmOption.value}
-              speed={speedOption.value}
-              items={items}
-              visualisationInProgress={visualisationInProgress}
-              onVisualisationStatusChange={this.handleVisualisationStatusChange}
-            />
+                disabled={visualisationInProgress}
+                speedOption={speedOption}
+                algorithmOption={algorithmOption}
+                sizeOption={sizeOption}
+                onSizeChange={this.handleSizeChange}
+                onSpeedChange={this.handleSpeedChange}
+                onAlgorithmChange={this.handleAlgorithmChange}
+              />
+              <SortVisualiser
+                onReset={this.handleRandomise}
+                algorithm={algorithmOption.value}
+                speed={speedOption.value}
+                items={items}
+                onRandomise={this.handleRandomise} 
+                visualisationInProgress={visualisationInProgress}
+                onVisualisationStatusChange={this.handleVisualisationStatusChange}
+              />
+          </main>
+          <footer>
+            <p>
+              Made with <i class="fas fa-heart" /> in Melbourne, Australia
+            </p>
+            <p>Copyright © 2019 Josh Nelsson-Smith</p>
+            </footer>
           </div>
-        </main>
-        <footer>
-          <p>
-            Made with <i class="fas fa-heart" /> in Melbourne, Australia
-          </p>
-          <p>Copyright © 2019 Josh Nelsson-Smith</p>
-          </footer>
       </div>
     );
   }

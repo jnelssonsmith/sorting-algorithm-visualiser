@@ -132,7 +132,7 @@ class SortVisualiser extends React.Component {
 
   render() {
     const { currentFrame } = this.state;
-    const { algorithm, visualisationInProgress } = this.props;
+    const { algorithm, visualisationInProgress, onRandomise } = this.props;
 
     return (
       <div className="visualiser-container">
@@ -149,8 +149,11 @@ class SortVisualiser extends React.Component {
           </div>
         </div>
         <div className="visualisation-controls">
-          <button disabled={visualisationInProgress} onClick={this.handleVisualise}>Visualise</button>
-          <button disabled={!visualisationInProgress} onClick={this.handleStop}>Stop</button>
+          {visualisationInProgress
+            ? <button onClick={this.handleStop}>Stop</button>
+            : <button onClick={this.handleVisualise}>Visualise</button>
+          }
+          <button disabled={visualisationInProgress} onClick={onRandomise}>Randomise</button>
         </div>
       </div>
     )

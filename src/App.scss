@@ -1,3 +1,5 @@
+@import "~ddbreakpoints/lib/dd.breakpoints";
+
 body {
   background-color: #F6F9FC;
   color: #3b415e; 
@@ -5,9 +7,27 @@ body {
 
 .App {
   display: flex;
+  justify-content: center;
+}
+
+.layout {
+  display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100%;
   min-height: 100vh;
+  width: 100%;
+  margin: 0 10px;
+  
+  @include bp(m) {
+    margin: 0 40px;
+    max-width: 1200px;
+  }
+
+  @include bp(xl) {
+    margin: 0 80px;
+    max-width: 1400px;
+  }
 }
 
 
@@ -31,15 +51,20 @@ h2 {
 }
 
 .control {
-  margin-right: 20px;
-  min-width: 200px;
+  margin-top: 20px;
+  margin-right: unset;
+  width: 100%;
+
+  @include bp(l) {
+    width: 200px;
+    margin-top: unset;
+    margin-right: 20px;
+  }
 }
 
 .select {
   margin-top: 5px;
 }
-
-
 
 .algorithm-details {
   margin-bottom: 20px;
@@ -48,23 +73,52 @@ h2 {
 
 .visualisation-controls {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: 20px;
   margin-top: 20px;
   border-top: 1px solid #e3e8ee;
+
+
+  @include bp(m) {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  & > button {
+    width: 100%;
+    margin-top: 10px;
+    margin-right: unset;
+
+    @include bp(m) {
+      width: 150px;
+      margin-top: unset;
+      margin-right: 20px;
+    }
+  }
 }
 
-
-
 .graph-container {
-  padding: 0 70px;
+  padding: unset;
+
+  @include bp(m) {
+    padding: 0 50px;
+  }
+
+  @include bp(xl) {
+    padding: 0 70px;
+  }
 }
 
 .visualiser-container {
   box-shadow: 0 6px 12px -2px rgba(50,50,93,.25), 0 3px 7px -3px rgba(0,0,0,.3);
   background: #FFF;
   border-radius: 4px;
-  padding: 20px 40px;
+  padding: 10px 20px;
+
+  @include bp(xl) {
+    padding: 20px 40px;
+  }
 }
 
 .graph {
@@ -76,7 +130,7 @@ h2 {
 }
 
 .graph-bar {
-  margin: 0 1px;
+  margin-right: 1px;
   background-color: #8898aa;
   flex: 1;
 }
@@ -99,20 +153,16 @@ h2 {
 }
 
 
-.layout-l {
-  width: 100%;
-  margin: 0 80px;
-  max-width: 1400px;
-}
-
 header {
   display: flex;
+  flex-direction: column;
   flex: 1;
   margin-bottom: 20px;
 }
 
 main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   flex: 1;
 }

@@ -9,7 +9,6 @@ const ControlPanel = ({
   onSizeChange,
   onAlgorithmChange,
   onSpeedChange,
-  onRandomise,
   disabled,
   speedOption,
   algorithmOption,
@@ -39,7 +38,6 @@ const ControlPanel = ({
           <Select className="select" isDisabled={disabled} value={speedOption} onChange={onSpeedChange} options={speedOptions} />
           </label>
         </div>
-        <button disabled={disabled} onClick={onRandomise}>Randomise</button>
       </div>
     </section>
   )
