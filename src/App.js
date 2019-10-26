@@ -4,12 +4,14 @@ import './App.css';
 import SortVisualiser from './components/SortVisualiser';
 import ControlPanel from './components/ConrolPanel';
 
+import { defaultSizeOption } from './config/sizeOptions';
+import { defaultAlgorithmOption } from './config/algorithmOptions';
+import { defaultSpeedOption } from './config/speedOptions';
+
 const getRandomArr = (length) => {
   return Array.apply(null, Array(length)).map(function() { return Math.floor(Math.random() * 90) + 10; })
 }
 
-const INITIAL_ALGORITHM = "BUBBLE";
-const INITIAL_SIZE = 20;
 
 class App extends React.Component {
 
@@ -17,38 +19,42 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      items: getRandomArr(INITIAL_SIZE),
-      size: INITIAL_SIZE,
-      algorithm: INITIAL_ALGORITHM,
+      items: getRandomArr(defaultSizeOption.value),
+      sizeOption: defaultSizeOption,
+      algorithmOption: defaultAlgorithmOption,
       visualisationInProgress: false,
+      speedOption: defaultSpeedOption,
     }
   }
 
-
-  handleSizeChange = (e) => {
-    const newSize = Number.parseInt(e.target.value, 10);
+  handleSizeChange = (option) => {
     this.setState({
-      size: newSize,
-      items: getRandomArr(newSize)
+      sizeOption: option,
+      items: getRandomArr(option.value)
     })
   }
 
-  handleAlgorithmChange = (e) => {
-    const algorithm = e.target.value;
+  handleAlgorithmChange = (option) => {
     this.setState({
-      algorithm,
+      algorithmOption: option,
     })
   }
 
   handleRandomise = () => {
     this.setState(prevState => ({
-      items: getRandomArr(prevState.size)
+      items: getRandomArr(prevState.sizeOption.value)
     }))
   }
 
+  handleSpeedChange = (option) => {
+    this.setState({
+      speedOption: option,
+    })
+  }
+
   render() {
-    const { items, algorithm, visualisationInProgress } = this.state;
-    console.log(items.length)
+    const { items, algorithmOption, visualisationInProgress, sizeOption, speedOption } = this.state;
+
     return (
       <div className="App">
         <header className="">
@@ -58,11 +64,15 @@ class App extends React.Component {
           <div className="layout-l">
             <ControlPanel
               disabled={visualisationInProgress}
+              speedOption={speedOption}
+              algorithmOption={algorithmOption}
+              sizeOption={sizeOption}
               onSizeChange={this.handleSizeChange}
+              onSpeedChange={this.handleSpeedChange}
               onAlgorithmChange={this.handleAlgorithmChange}
               onRandomise={this.handleRandomise}          
             />
-            <SortVisualiser onReset={this.handleRandomise} algorithm={algorithm} items={items}></SortVisualiser>
+            <SortVisualiser onReset={this.handleRandomise} algorithm={algorithmOption.value} speed={speedOption.value} items={items}></SortVisualiser>
           </div>
         </main>
         <footer>

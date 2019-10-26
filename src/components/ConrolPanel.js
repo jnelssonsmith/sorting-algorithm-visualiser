@@ -1,10 +1,19 @@
 import React from 'react';
+import Select from 'react-select';
+
+import speedOptions from '../config/speedOptions';
+import algorithmOptions from '../config/algorithmOptions';
+import sizeOptions from '../config/sizeOptions';
 
 const ControlPanel = ({
   onSizeChange,
   onAlgorithmChange,
+  onSpeedChange,
   onRandomise,
   disabled,
+  speedOption,
+  algorithmOption,
+  sizeOption,
 }) => {
   return (
     <section class="control-panel">
@@ -12,23 +21,24 @@ const ControlPanel = ({
         Control Panel
       </h2>
       <div className="controls">
-        <label>
-          Sorting Algorithm
-        <select disabled={disabled} onChange={onAlgorithmChange}>
-          <option selected value="BUBBLE">Bubble Sort</option>
-          <option value="SELECTION">Selection Sort</option>
-        </select>
-        </label>
-        <label>
-          Array Length
-        <select disabled={disabled} onChange={onSizeChange}>
-          <option value="10">10</option>
-          <option selected value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="200">200</option>
-        </select>
-        </label>
+        <div className="control">
+          <label>
+            Sorting Algorithm
+          <Select className="select" value={algorithmOption} onChange={onAlgorithmChange} options={algorithmOptions} />
+          </label>
+        </div>
+        <div className="control">
+          <label>
+            Array Length
+          <Select className="select" value={sizeOption} onChange={onSizeChange} options={sizeOptions} />
+          </label>
+        </div>
+        <div className="control">
+          <label>
+            Speed
+          <Select className="select" value={speedOption} onChange={onSpeedChange} options={speedOptions} />
+          </label>
+        </div>
         <button disabled={disabled} onClick={onRandomise}>Randomise</button>
       </div>
     </section>

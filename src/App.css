@@ -21,11 +21,19 @@ body {
 
 .controls {
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
 }
 
-.controls > label {
+.control {
   margin-right: 20px;
+  min-width: 200px;
 }
+
+.select {
+  margin-top: 5px;
+}
+
 
 
 .algorithm-details {

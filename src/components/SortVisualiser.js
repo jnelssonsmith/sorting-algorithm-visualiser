@@ -18,8 +18,6 @@ const renderGraphBar = (item, index, frameConfig) => {
   
 }
 
-const SPEED = 16;
-
 
 const arrDifferent = (arr1, arr2) => {
   if (arr1.length !== arr2.length) {
@@ -117,7 +115,7 @@ class SortVisualiser extends React.Component {
 
           this.setState(stateUpdate)
         })
-      }, index * SPEED)
+      }, index * this.props.speed)
 
       this.animations.push(anim);
     })
