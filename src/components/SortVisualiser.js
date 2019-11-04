@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import bubbleSortVisualiser from '../algorithms/bubbleSortVisualiser';
 import selectionSortVisualiser from '../algorithms/selectionSortVisualiser';
 import insertionSortVisualiser from '../algorithms/insertionSortVisualiser';
+import mergeSortVisualiser from '../algorithms/mergeSortVisualiser';
 
 import AlgorithmDetailView from './AlgorithmDetailView';
 import algorithmDetails from '../data/algorithm-details.json'
@@ -85,6 +86,8 @@ class SortVisualiser extends React.Component {
         return selectionSortVisualiser;
       case 'INSERTION':
         return insertionSortVisualiser;
+      case 'MERGE':
+        return mergeSortVisualiser;
       default:
         return bubbleSortVisualiser;
     }

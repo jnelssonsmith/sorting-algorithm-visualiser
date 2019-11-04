@@ -1,4 +1,5 @@
 const speedOptions = [
+  {value: 5, label: '5ms/step'},
   {value: 16, label: '16ms/step'},
   {value: 30, label: '30ms/step'},
   {value: 50, label: '50ms/step'},
