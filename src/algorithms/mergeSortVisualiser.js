@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep';
-
 const mergeSortVisualiser = (items) => {
   let data = {
     frames: [],
@@ -19,15 +17,13 @@ const mergeSortVisualiser = (items) => {
     swapCount: data.swapCount
   });
 
-  const [sorted, finalData] = mergeSort(items, data, 0, true);
-  console.log(sorted);
-  console.log(finalData.frames[finalData.frames.length - 1].positioning);
+  const [_, finalData] = mergeSort(items, data, 0, true);
   return finalData.frames;
 }
 
 const mergeSort = (arr, data, offset, isFinalSort = false) => {
   if (arr.length === 1) {
-    return [arr, cloneDeep(data)];
+    return [arr, data];
   }
 
   const middle = Math.floor(arr.length / 2);
@@ -40,10 +36,10 @@ const mergeSort = (arr, data, offset, isFinalSort = false) => {
   const realRightIndex = middle + offset;
 
   // Using recursion to combine the left and right
-  const [newLeft, leftUpdatedData] = mergeSort(left, cloneDeep(data), offset);
-  const [newRight, rightUpdatedData] = mergeSort(right, cloneDeep(leftUpdatedData), offset + middle);
+  const [newLeft, leftUpdatedData] = mergeSort(left, data, offset);
+  const [newRight, rightUpdatedData] = mergeSort(right, leftUpdatedData, offset + middle);
 
-  return merge(newLeft, newRight, realLeftIndex, realRightIndex, cloneDeep(rightUpdatedData), isFinalSort);
+  return merge(newLeft, newRight, realLeftIndex, realRightIndex, rightUpdatedData, isFinalSort);
 }
 
 const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data, isFinalSort = false) => {
@@ -51,7 +47,6 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data,
   let rightIndex = 0;
   let results = [];
 
-  let leftSideSwaps = 0;
   let rightSideSwaps = 0;
 
   const leftArrIndices = leftArr.map((_, i) => i + leftRealStartIndex);
@@ -113,7 +108,6 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data,
       })
 
       insert(data.currentPositions, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
-      leftSideSwaps += 1;
 
       data.frames.push({
         positioning: [...data.currentPositions],
@@ -217,7 +211,6 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data,
   } else {
     while (leftIndex < leftArr.length) {
       insert(data.currentPositions, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
-      leftSideSwaps += 1;
 
       data.frames.push({
         positioning: [...data.currentPositions],
