@@ -9,5 +9,5 @@ const speedOptions = [
   {value: 1000, label: '1000ms/step'},
 ]
 
-export const defaultSpeedOption = speedOptions[1];
+export const defaultSpeedOption = speedOptions[0];
 export default speedOptions;

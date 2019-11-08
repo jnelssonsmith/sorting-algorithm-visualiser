@@ -66,12 +66,11 @@ const partition = (arr, leftIndex, rightIndex, data) => {
 
   // Increment j up to the index preceding the pivot
   while (j < pivot) {
-    
     data.frames.push({
       positioning: [...arr],
-      comparison: [pivot, j],
+      comparison: [j,i],
       swappers: [],
-      highlight: [i],
+      highlight: [pivot],
       ordered: [...data.orderedItems],
       comparisonCount: data.comparisonCount,
       swapCount: data.swapCount
@@ -81,26 +80,36 @@ const partition = (arr, leftIndex, rightIndex, data) => {
     if (arr[j] > arr[pivot]) {
       j++
     } else {
-
+      i++
+      
       data.frames.push({
         positioning: [...arr],
-        comparison: [pivot],
-        swappers: [j, i],
-        highlight: [],
+        comparison: [i],
+        swappers: [j],
+        highlight: [pivot],
         ordered: [...data.orderedItems],
         comparisonCount: data.comparisonCount,
         swapCount: data.swapCount
       });
 
-      i++
       swapElements(arr, j, i)
+
+      data.frames.push({
+        positioning: [...arr],
+        comparison: [j],
+        swappers: [i],
+        highlight: [pivot],
+        ordered: [...data.orderedItems],
+        comparisonCount: data.comparisonCount,
+        swapCount: data.swapCount
+      });
       j++
 
       data.frames.push({
         positioning: [...arr],
-        comparison: [pivot],
-        swappers: [i, j],
-        highlight: [],
+        comparison: [i, j],
+        swappers: [],
+        highlight: [pivot],
         ordered: [...data.orderedItems],
         comparisonCount: data.comparisonCount,
         swapCount: data.swapCount

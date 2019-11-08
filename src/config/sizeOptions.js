@@ -7,5 +7,5 @@ const sizeOptions = [
   {value: 200, label: '200'},
 ]
 
-export const defaultSizeOption = sizeOptions[1];
+export const defaultSizeOption = sizeOptions[3];
 export default sizeOptions;

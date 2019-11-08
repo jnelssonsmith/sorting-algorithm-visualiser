@@ -1,3 +1,6 @@
+import SortVisualisation from '../models/SortingVisualisation';
+
+
 /**
  * Bubble sort
  * @param {number[]} items - The number array to be sorted using bubble sort
@@ -18,6 +21,8 @@ const bubbleSortVisualiser = (items) => {
     comparisonCount: comparisonCount,
     swapCount: swapCount
   })
+
+
 
   let mutableArr = items.map(i => i);
   for (let i = 0; i < mutableArr.length; i++) {
