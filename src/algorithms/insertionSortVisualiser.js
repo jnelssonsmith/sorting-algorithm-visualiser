@@ -1,95 +1,54 @@
+import SortingVisualisation from '../models/SortingVisualisation';
 
 const insertionSortVisualiser = (items) => {
-  let frames = [];
-  let orderedItems = [];
-  let comparisonCount = 0;
-  let swapCount = 0;
-
-  frames.push({
-    positioning: items,
-    comparison: [],
-    swappers: [],
-    highlight: [],
-    ordered: [...orderedItems],
-    comparisonCount: comparisonCount,
-    swapCount: swapCount
-  })
-
+  const visualisation = new SortingVisualisation(items, 'Insertions');
 
   let mutableArr = items.map(i => i);
 
   // by default the first item is initially seen as sorted
-  frames.push({
-    positioning: [...mutableArr],
-    comparison: [],
-    swappers: [],
-    highlight: [0],
-    ordered: [...orderedItems],
-    comparisonCount: comparisonCount,
-    swapCount: swapCount
-  })
-
-  
+  visualisation.createFrame({
+    highlight: [0]
+  });
 
   for (let i = 1; i < mutableArr.length; i++) {
     let insertionIndex = i;
     for (let k = i - 1; k >= 0; k--) {
 
-      comparisonCount += 1;
-      frames.push({
-        positioning: [...mutableArr],
+      visualisation.incrementComparisons();
+      visualisation.createFrame({
         comparison: [k],
-        swappers: [],
         highlight: [i],
-        ordered: [...orderedItems],
-        comparisonCount: comparisonCount,
-        swapCount: swapCount
-      })
+      });
 
       if (mutableArr[i] < mutableArr[k]) {
         insertionIndex -= 1;
       } else {
-        frames.push({
-          positioning: [...mutableArr],
-          comparison: [],
-          swappers: [k],
+        visualisation.createFrame({
+          operation: [k],
           highlight: [i],
-          ordered: [...orderedItems],
-          comparisonCount: comparisonCount,
-          swapCount: swapCount
-        })
+        });
         break;
       }
     }
 
-    swapCount += 1;
-    insert(mutableArr, mutableArr[i], insertionIndex, i);
-    frames.push({
-      positioning: [...mutableArr],
-      comparison: [],
-      swappers: [],
+    visualisation.incrememntOperations();
+    insertElement(mutableArr, mutableArr[i], insertionIndex, i);
+    visualisation.createFrame({
+      updatedPositions: [...mutableArr],
       highlight: [insertionIndex],
-      ordered: [...orderedItems],
-      comparisonCount: comparisonCount,
-      swapCount: swapCount
-    })
-    
+    });
   }
 
-  frames.push({
-    positioning: [...mutableArr],
-    comparison: [],
-    swappers: [],
-    highlight: [],
-    ordered: [...mutableArr.map((_, i) => i)],
-    comparisonCount: comparisonCount,
-    swapCount: swapCount
-  })
+  for (let i = 0; i < items.length; i++) {
+    visualisation.addOrderedItem(i);
+  }
 
-  return frames;
+  visualisation.createFrame({});
+
+  return visualisation;
 }
 
-const insert = (arr, element, insertionIndex, originalIndex) => {
+const insertElement = (arr, element, insertionIndex, originalIndex) => {
     arr.splice(originalIndex, 1)
     arr.splice(insertionIndex, 0, element);
 }

@@ -1,28 +1,11 @@
-import SortVisualisation from '../models/SortingVisualisation';
-
+import SortingVisualisation from '../models/SortingVisualisation';
 
 /**
  * Bubble sort
  * @param {number[]} items - The number array to be sorted using bubble sort
  */
 const bubbleSortVisualiser = (items) => {
-  let frames = [];
-  let orderedItems = [];
-  let comparisonCount = 0;
-  let swapCount = 0;
-  
-  // push initial frame
-  frames.push({
-    positioning: items,
-    comparison: [],
-    swappers: [],
-    highlight: [],
-    ordered: [...orderedItems],
-    comparisonCount: comparisonCount,
-    swapCount: swapCount
-  })
-
-
+  const visualisation = new SortingVisualisation(items, 'Swaps');
 
   let mutableArr = items.map(i => i);
   for (let i = 0; i < mutableArr.length; i++) {
@@ -31,63 +14,39 @@ const bubbleSortVisualiser = (items) => {
        * Push comparison frame for current 
        * pair we are looking at
        */
-      frames.push({
-        positioning: [...mutableArr],
+      visualisation.createFrame({
         comparison: [k, k + 1],
-        swappers: [],
-        highlight: [],
-        ordered: [...orderedItems],
-        comparisonCount: comparisonCount,
-        swapCount: swapCount
       })
+      visualisation.incrementComparisons();
 
-      comparisonCount += 1;
       if (mutableArr[k] > mutableArr[k + 1]) {
         /**
          * The two elements need to swap, so we push a 
          * frame indicating that they are out of order
          */
-        frames.push({
-          positioning: [...mutableArr],
-          comparison: [],
-          swappers: [k, k + 1],
-          highlight: [],
-          ordered: [...orderedItems],
-          comparisonCount: comparisonCount,
-          swapCount: swapCount
+        visualisation.createFrame({
+          operation: [k, k + 1],
         })
 
         swapElements(mutableArr, k, k + 1);
-        swapCount += 1;
+        visualisation.incrememntOperations();
+
         /**
          * Push frame with them after the swap to help indicate 
          * that they have swapped
          */
-        frames.push({
-          positioning: [...mutableArr],
-          comparison: [],
-          swappers: [k, k + 1],
-          highlight: [],
-          ordered: [...orderedItems],
-          comparisonCount: comparisonCount,
-          swapCount: swapCount
+        visualisation.createFrame({
+          updatedPositions: [...mutableArr],
+          operation: [k, k + 1],
         })
-
-        
-        
+ 
         /**
          * Push comparison frame to show they are now
          * in order
          */
-        frames.push({
-          positioning: [...mutableArr],
+        visualisation.createFrame({
           comparison: [k, k + 1],
-          swappers: [],
-          highlight: [],
-          ordered: [...orderedItems],
-          comparisonCount: comparisonCount,
-          swapCount: swapCount
-        })
+        });
       }
     }
 
@@ -95,19 +54,12 @@ const bubbleSortVisualiser = (items) => {
      * At the end of the loop we know that the 
      * last index is sorted so we add it to the ordered arr
      */
-    orderedItems.push(mutableArr.length -i -1)
-    frames.push({
-      positioning: [...mutableArr],
-      comparison: [],
-      swappers: [],
-      highlight: [],
-      ordered: [...orderedItems],
-      comparisonCount: comparisonCount,
-      swapCount: swapCount
-    })
+    const orderedIndex = mutableArr.length - i - 1
+    visualisation.addOrderedItem(orderedIndex)
+    visualisation.createFrame({});
   }
 
-  return frames;
+  return visualisation;
 }
 
 

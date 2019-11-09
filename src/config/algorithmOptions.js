@@ -6,5 +6,5 @@ const algorithmOptions = [
   {value: 'INSERTION', label: 'Insertion Sort'},
 ]
 
-export const defaultAlgorithmOption = algorithmOptions[0];
+export const defaultAlgorithmOption = algorithmOptions[2];
 export default algorithmOptions;

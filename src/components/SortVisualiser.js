@@ -9,19 +9,19 @@ import quickSortVisualiser from '../algorithms/quickSortVisualiser';
 
 import AlgorithmDetailView from './AlgorithmDetailView';
 import algorithmDetails from '../data/algorithm-details.json'
+import SortingVisualisation from '../models/SortingVisualisation';
 
 const renderGraphBar = (item, index, frameConfig) => {
 
   const classes = classNames({
     'graph-bar': true,
     'graph-bar--comparison': frameConfig && frameConfig.comparison.includes(index),
-    'graph-bar--swap': frameConfig && frameConfig.swappers.includes(index),
+    'graph-bar--swap': frameConfig && frameConfig.operation.includes(index),
     'graph-bar--ordered': frameConfig && frameConfig.ordered.includes(index),
     'graph-bar--highlight': frameConfig && frameConfig.highlight.includes(index),
   })
 
   return <div key={`${index}-${classes}-${item}`} style={{height: `${item}%`}} className={classes}></div>
-  
 }
 
 
@@ -45,34 +45,18 @@ class SortVisualiser extends React.Component {
     super(props);
 
     this.state = {
-      currentFrame: {
-        positioning: props.items,
-        comparison: [],
-        swappers: [],
-        highlight: [],
-        ordered: [],
-        comparisonCount: 0,
-        swapCount: 0,
-      }
+      currentFrame: SortingVisualisation.getDefaultFrame(props.items),
     }
 
-
     this.animations = []
+    this.visualisation = null
   }
 
 
   componentDidUpdate(prevProps) {
       if (arrDifferent(prevProps.items, this.props.items)) {
         this.setState({
-          currentFrame: {
-            positioning: this.props.items,
-            comparison: [],
-            swappers: [],
-            highlight: [],
-            ordered: [],
-            comparisonCount: 0,
-            swapCount: 0,
-          }
+          currentFrame: SortingVisualisation.getDefaultFrame(this.props.items)
         })
       }
   }
@@ -106,15 +90,19 @@ class SortVisualiser extends React.Component {
 
   handleVisualise = () => {
     this.animations = [];
-    const frames = this.getVisualiser(this.props.algorithm)(this.props.items);
-    console.log(frames);
+    this.visualisation = this.getVisualiser(this.props.algorithm)(this.props.items);
     this.props.onVisualisationStatusChange(true);
 
-    frames.forEach((frame, index) => {
+    
+    while (!this.visualisation.isFinished()) {
+      const frameIndex = this.visualisation.getFrameIndex();
+      const frame = this.visualisation.getNextFrame();
+      const isFinalFrame = this.visualisation.isLastFrame();
+
       const anim = setTimeout(() => {
         requestAnimationFrame(() => {
 
-          if (index === (frames.length - 1)) {
+          if (isFinalFrame) {
             this.props.onVisualisationStatusChange(false);
           }
 
@@ -123,10 +111,10 @@ class SortVisualiser extends React.Component {
           })
           
         })
-      }, index * this.props.speed)
+      }, frameIndex * this.props.speed)
 
       this.animations.push(anim);
-    })
+    }
   }
 
   handleStop = () => {
