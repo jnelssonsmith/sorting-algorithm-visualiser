@@ -1,29 +1,15 @@
+import SortingVisualisation from '../models/SortingVisualisation'
+
 const mergeSortVisualiser = (items) => {
-  let data = {
-    frames: [],
-    orderedItems: [],
-    comparisonCount: 0,
-    swapCount: 0,
-    currentPositions: items.map(i => i),
-  }
+  const visualisation = new SortingVisualisation(items, 'Insertions')
 
-  data.frames.push({
-    positioning: [...data.currentPositions],
-    comparison: [],
-    swappers: [],
-    highlight: [],
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
-  });
-
-  const [_, finalData] = mergeSort(items, data, 0, true);
-  return finalData.frames;
+  const [_, finalVisualisation] = mergeSort(items, visualisation, 0, true);
+  return finalVisualisation;
 }
 
-const mergeSort = (arr, data, offset, isFinalSort = false) => {
+const mergeSort = (arr, visualisation, offset, isFinalSort = false) => {
   if (arr.length === 1) {
-    return [arr, data];
+    return [arr, visualisation];
   }
 
   const middle = Math.floor(arr.length / 2);
@@ -36,13 +22,13 @@ const mergeSort = (arr, data, offset, isFinalSort = false) => {
   const realRightIndex = middle + offset;
 
   // Using recursion to combine the left and right
-  const [newLeft, leftUpdatedData] = mergeSort(left, data, offset);
-  const [newRight, rightUpdatedData] = mergeSort(right, leftUpdatedData, offset + middle);
+  const [newLeft, leftUpdatedVis] = mergeSort(left, visualisation, offset);
+  const [newRight, rightUpdatedVis] = mergeSort(right, leftUpdatedVis, offset + middle);
 
-  return merge(newLeft, newRight, realLeftIndex, realRightIndex, rightUpdatedData, isFinalSort);
+  return merge(newLeft, newRight, realLeftIndex, realRightIndex, rightUpdatedVis, isFinalSort);
 }
 
-const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data, isFinalSort = false) => {
+const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visualisation, isFinalSort = false) => {
   let leftIndex = 0;
   let rightIndex = 0;
   let results = [];
@@ -53,123 +39,65 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data,
   const rightArrIndices = rightArr.map((_, i) => i + rightRealStartIndex);
 
   // initial animation to show what two sides are being compared
-  data.frames.push({
-    positioning: [...data.currentPositions],
-    comparison: [],
-    swappers: [],
+  visualisation.createFrame({
     highlight: leftArrIndices,
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
   })
 
-  data.frames.push({
-    positioning: [...data.currentPositions],
-    comparison: [],
-    swappers: [],
+  visualisation.createFrame({
     highlight: rightArrIndices,
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
   })
 
-  data.frames.push({
-    positioning: [...data.currentPositions],
-    comparison: [],
-    swappers: [],
+  visualisation.createFrame({
     highlight: [...leftArrIndices, ...rightArrIndices],
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
   })
 
   while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
 
-    data.frames.push({
-      positioning: [...data.currentPositions],
+    visualisation.createFrame({
       comparison: [leftIndex + leftRealStartIndex, rightIndex + rightRealStartIndex],
-      swappers: [],
-      highlight: [],
-      ordered: [...data.orderedItems],
-      comparisonCount: data.comparisonCount,
-      swapCount: data.swapCount
     })
 
     if (leftArr[leftIndex] < rightArr[rightIndex] || rightIndex >= rightArr.length) {
 
-      data.frames.push({
-        positioning: [...data.currentPositions],
+      visualisation.createFrame({
         comparison: [rightIndex + rightRealStartIndex],
-        swappers: [leftIndex + leftRealStartIndex],
-        highlight: [],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
+        operation: [leftIndex + leftRealStartIndex],
       })
 
-      insert(data.currentPositions, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
+      const positioning = visualisation.getCurrentPositioning();
+      insert(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
 
-      data.frames.push({
-        positioning: [...data.currentPositions],
-        comparison: [],
-        swappers: [leftRealStartIndex + results.length],
-        highlight: [],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
+      visualisation.createFrame({
+        updatedPositions: [...positioning],
+        operation: [leftRealStartIndex + results.length],
       })
 
       if (isFinalSort) {
-        data.orderedItems.push(leftRealStartIndex + results.length)
-        data.frames.push({
-          positioning: [...data.currentPositions],
-          comparison: [],
-          swappers: [],
-          highlight: [],
-          ordered: [...data.orderedItems],
-          comparisonCount: data.comparisonCount,
-          swapCount: data.swapCount
-        })
+        visualisation.addOrderedItem(leftRealStartIndex + results.length)
+        visualisation.createFrame({})
       }
 
       results.push(leftArr[leftIndex]);
       leftIndex++;
     } else {
 
-      data.frames.push({
-        positioning: [...data.currentPositions],
+      visualisation.createFrame({
         comparison: [leftIndex + leftRealStartIndex],
-        swappers: [rightIndex + rightRealStartIndex],
-        highlight: [],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
+        operation: [rightIndex + rightRealStartIndex],
       })
 
-      insert(data.currentPositions, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
+      const positioning = visualisation.getCurrentPositioning();
+      insert(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
       rightSideSwaps += 1;
 
-      data.frames.push({
-        positioning: [...data.currentPositions],
-        comparison: [],
-        swappers: [rightRealStartIndex + results.length],
-        highlight: [],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
+      visualisation.createFrame({
+        updatedPositions: [...positioning],
+        operation: [rightRealStartIndex + results.length],
       })
 
       if (isFinalSort) {
-        data.orderedItems.push(leftRealStartIndex + results.length)
-        data.frames.push({
-          positioning: [...data.currentPositions],
-          comparison: [],
-          swappers: [],
-          highlight: [],
-          ordered: [...data.orderedItems],
-          comparisonCount: data.comparisonCount,
-          swapCount: data.swapCount
-        })
+        visualisation.addOrderedItem(leftRealStartIndex + results.length)
+        visualisation.createFrame({})
       }
 
       results.push(rightArr[rightIndex]);
@@ -179,30 +107,17 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data,
 
   if (rightIndex < rightArr.length) {
     while (rightIndex < rightArr.length) {
-      insert(data.currentPositions, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
+      const positioning = visualisation.getCurrentPositioning();
+      insert(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
       rightSideSwaps += 1;
 
-      data.frames.push({
-        positioning: [...data.currentPositions],
-        comparison: [],
-        swappers: [],
-        highlight: [],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
+      visualisation.createFrame({
+        updatedPositions: [...positioning],
       })
 
       if (isFinalSort) {
-        data.orderedItems.push(leftRealStartIndex + results.length)
-        data.frames.push({
-          positioning: [...data.currentPositions],
-          comparison: [],
-          swappers: [],
-          highlight: [],
-          ordered: [...data.orderedItems],
-          comparisonCount: data.comparisonCount,
-          swapCount: data.swapCount
-        })
+        visualisation.addOrderedItem(leftRealStartIndex + results.length)
+        visualisation.createFrame({})
       }
 
       results.push(rightArr[rightIndex]);
@@ -210,29 +125,16 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data,
     }
   } else {
     while (leftIndex < leftArr.length) {
-      insert(data.currentPositions, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
+      const positioning = visualisation.getCurrentPositioning();
+      insert(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
 
-      data.frames.push({
-        positioning: [...data.currentPositions],
-        comparison: [],
-        swappers: [],
-        highlight: [],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
+      visualisation.createFrame({
+        updatedPositions: [...positioning],
       })
 
       if (isFinalSort) {
-        data.orderedItems.push(leftRealStartIndex + results.length)
-        data.frames.push({
-          positioning: [...data.currentPositions],
-          comparison: [],
-          swappers: [],
-          highlight: [],
-          ordered: [...data.orderedItems],
-          comparisonCount: data.comparisonCount,
-          swapCount: data.swapCount
-        })
+        visualisation.addOrderedItem(leftRealStartIndex + results.length)
+        visualisation.createFrame({})
       }
 
       results.push(leftArr[leftIndex]);
@@ -242,7 +144,7 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, data,
 
   return [
     results,
-    data
+    visualisation
   ];
 }
 

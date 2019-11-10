@@ -75,6 +75,8 @@ export default class SortingVisualisation {
     this._orderedItems.push(item);
   }
 
+  getCurrentPositioning = () => [...this._getLastPositioning()]
+
   getNextFrame = () => {
     const frameIndex = Math.min(this._currentFrameIndex, this._frames.length - 1);
     

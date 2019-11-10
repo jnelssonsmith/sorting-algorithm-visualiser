@@ -1,62 +1,35 @@
+import SortingVisualisation from '../models/SortingVisualisation';
+
 const quickSortVisualiser = (items) => {
-  let data = {
-    frames: [],
-    comparisonCount: 0,
-    swapCount: 0,
-    orderedItems: [],
-  }
+  const visualisation = new SortingVisualisation(items, 'Swaps');
 
-  data.frames.push({
-    positioning: [...items],
-    comparison: [],
-    swappers: [],
-    highlight: [],
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
-  });
-
-  const finalData = quickSort(items, 0, items.length - 1, data)
-  return finalData.frames;
+  const finalVisualisation = quickSort(items, 0, items.length - 1, visualisation)
+  return finalVisualisation;
 }
 
-const quickSort = (arr, leftIndex, rightIndex, data) => {
+const quickSort = (arr, leftIndex, rightIndex, visualisation) => {
   if(leftIndex < rightIndex) {
 
-    let [pivot, partitionData] = partition(arr, leftIndex, rightIndex, data)
+    let [pivot, partitionVis] = partition(arr, leftIndex, rightIndex, visualisation)
 
-    const updatedData = quickSort(arr, leftIndex, pivot - 1, partitionData)
-    const returnData = quickSort(arr, pivot + 1, rightIndex, updatedData)
+    const leftVis = quickSort(arr, leftIndex, pivot - 1, partitionVis)
+    const rightVis = quickSort(arr, pivot + 1, rightIndex, leftVis)
 
-    return returnData
+    return rightVis;
   } else {
-    data.orderedItems.push(rightIndex);
-    data.frames.push({
-      positioning: [...arr],
-      comparison: [],
-      swappers: [],
-      highlight: [],
-      ordered: [...data.orderedItems],
-      comparisonCount: data.comparisonCount,
-      swapCount: data.swapCount
-    });
+    visualisation.addOrderedItem(rightIndex);
+    visualisation.createFrame({});
 
-    return data;
+    return visualisation;
   }
 }
 
-const partition = (arr, leftIndex, rightIndex, data) => {
+const partition = (arr, leftIndex, rightIndex, visualisation) => {
   let pivot = rightIndex
 
   // show pivot
-  data.frames.push({
-    positioning: [...arr],
-    comparison: [],
-    swappers: [],
+  visualisation.createFrame({
     highlight: [pivot],
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
   });
 
   // Set i to leftIndex - 1 so that it can access the first index in the event that the value at arr[0] is greater than arr[pivot]
@@ -66,14 +39,9 @@ const partition = (arr, leftIndex, rightIndex, data) => {
 
   // Increment j up to the index preceding the pivot
   while (j < pivot) {
-    data.frames.push({
-      positioning: [...arr],
+    visualisation.createFrame({
       comparison: [j,i],
-      swappers: [],
       highlight: [pivot],
-      ordered: [...data.orderedItems],
-      comparisonCount: data.comparisonCount,
-      swapCount: data.swapCount
     });
 
     // If the value is greater than the pivot increment j
@@ -82,81 +50,50 @@ const partition = (arr, leftIndex, rightIndex, data) => {
     } else {
       i++
       
-      data.frames.push({
-        positioning: [...arr],
+      visualisation.createFrame({
         comparison: [i],
-        swappers: [j],
+        operation: [j],
         highlight: [pivot],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
       });
 
       swapElements(arr, j, i)
 
-      data.frames.push({
-        positioning: [...arr],
+      visualisation.createFrame({
+        updatedPositions: [...arr],
         comparison: [j],
-        swappers: [i],
+        operation: [i],
         highlight: [pivot],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
       });
       j++
 
-      data.frames.push({
-        positioning: [...arr],
+      visualisation.createFrame({
         comparison: [i, j],
-        swappers: [],
         highlight: [pivot],
-        ordered: [...data.orderedItems],
-        comparisonCount: data.comparisonCount,
-        swapCount: data.swapCount
       });
     }
 
   }
 
-  data.frames.push({
-    positioning: [...arr],
-    comparison: [],
-    swappers: [pivot, i + 1],
-    highlight: [],
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
+  visualisation.createFrame({
+    operation: [pivot, i + 1],
   });
 
   //The value at arr[i + 1] will be greater than the value of arr[pivot]
   swapElements(arr, i + 1, pivot)
 
-  data.frames.push({
-    positioning: [...arr],
-    comparison: [],
-    swappers: [pivot, i + 1],
-    highlight: [],
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
+  visualisation.createFrame({
+    updatedPositions: [...arr],
+    operation: [pivot, i + 1],
   });
 
-  data.orderedItems.push(i + 1);
-  data.frames.push({
-    positioning: [...arr],
-    comparison: [],
-    swappers: [],
-    highlight: [],
-    ordered: [...data.orderedItems],
-    comparisonCount: data.comparisonCount,
-    swapCount: data.swapCount
-  });
+  visualisation.addOrderedItem(i + 1);
+  visualisation.createFrame({});
 
   //You return i + 1, as the values to the left of it are less than arr[i+1], and values to the right are greater than arr[i + 1]
   // As such, when the recursive quicksorts are called, the new sub arrays will not include this the previously used pivot value
   return [
     i + 1,
-    data
+    visualisation
   ]
 }
 
