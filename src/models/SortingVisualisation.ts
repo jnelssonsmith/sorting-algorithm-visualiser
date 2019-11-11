@@ -1,7 +1,15 @@
 import Frame from './Frame';
 
 export default class SortingVisualisation {
-  constructor(items, opLabel) {
+  private _frames: Frame[];
+  private _orderedItems: number[];
+  private _comparisonCount: number;
+  private _operationCount: number;
+  private _operationLabel: string;
+  private _finished: boolean;
+  private _currentFrameIndex: number;
+  
+  constructor(items: number[], opLabel: string) {
     this._frames = [];
     this._orderedItems = [];
     this._comparisonCount = 0;
@@ -23,7 +31,7 @@ export default class SortingVisualisation {
     this._frames.push(initialFrame);
   }
 
-  static getDefaultFrame = items =>
+  static getDefaultFrame = (items: number[]) =>
     new Frame({
       positioning: [...items],
       comparison: [],
@@ -70,7 +78,7 @@ export default class SortingVisualisation {
     this._operationCount += 1;
   };
 
-  addOrderedItem = item => {
+  addOrderedItem = (item: number) => {
     this._orderedItems.push(item);
   };
 

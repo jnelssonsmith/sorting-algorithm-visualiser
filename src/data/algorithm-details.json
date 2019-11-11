@@ -5,21 +5,21 @@
     "space": {
       "worstCase": {
         "value": "1",
-        "description": ""
+        "description": "Bubble sort only makes use of in-place swaps so will always only require the space of the given array."
       },
       "bestCase": {
         "value": "1",
-        "description": ""
+        "description": "Bubble sort only makes use of in-place swaps so will always only require the space of the given array."
       }
     },
     "time": {
       "worstCase": {
-        "value": "O(N^2)",
-        "description": ""
+        "value": "O(n²)",
+        "description": "Corresponds to the case where the elements are in reverse sort order and the maximum distance is traveledby each item propogating to the end of the array."
       },
       "bestCase": {
-        "value": "O(N)",
-        "description": ""
+        "value": "O(n)",
+        "description": "If the elements are sorted already only a single pass through the array is required to confirm."
       }
     }
   },
@@ -28,21 +28,21 @@
     "description": "In computer science, selection sort is a sorting algorithm, specifically an in-place comparison sort. It has O time complexity, making it inefficient on large lists, and generally performs worse than the similar insertion sort.",
     "space": {
       "worstCase": {
-        "value": "",
-        "description": ""
+        "value": "1",
+        "description": "Selection sort only makes use of in-place swaps so will always only require the space of the given array."
       },
       "bestCase": {
-        "value": "",
-        "description": ""
+        "value": "1",
+        "description": "Selection sort only makes use of in-place swaps so will always only require the space of the given array."
       }
     },
     "time": {
       "worstCase": {
-        "value": "",
+        "value": "O(n²)",
         "description": ""
       },
       "bestCase": {
-        "value": "",
+        "value": "O(n²)",
         "description": ""
       }
     }
