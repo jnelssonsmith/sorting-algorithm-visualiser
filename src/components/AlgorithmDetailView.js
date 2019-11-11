@@ -2,7 +2,7 @@ import React from 'react';
 
 const AlgorithmDetailView = ({ algorithmDetails }) => {
   if (!algorithmDetails) {
-    return <p>error loading details</p>
+    return <p>error loading details</p>;
   }
 
   return (
@@ -11,6 +11,6 @@ const AlgorithmDetailView = ({ algorithmDetails }) => {
       <p>{algorithmDetails.description}</p>
     </div>
   );
-}
+};
 
 export default AlgorithmDetailView;

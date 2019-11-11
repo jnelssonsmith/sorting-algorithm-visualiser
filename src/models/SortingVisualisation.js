@@ -18,12 +18,13 @@ export default class SortingVisualisation {
       ordered: [...this._orderedItems],
       comparisonCount: this._comparisonCount,
       operationCount: this._operationCount,
-    })
+    });
 
     this._frames.push(initialFrame);
   }
 
-  static getDefaultFrame = (items) => new Frame({
+  static getDefaultFrame = items =>
+    new Frame({
       positioning: [...items],
       comparison: [],
       operation: [],
@@ -34,10 +35,10 @@ export default class SortingVisualisation {
     });
 
   _getLastPositioning = () => {
-    return this._frames.length 
+    return this._frames.length
       ? this._frames[this._frames.length - 1].positioning
       : [];
-  } 
+  };
 
   createFrame = ({
     updatedPositions = [...this._getLastPositioning()],
@@ -48,7 +49,6 @@ export default class SortingVisualisation {
     comparisonCount = this._comparisonCount,
     operationCount = this._operationCount,
   }) => {
-
     const nextFrame = new Frame({
       positioning: updatedPositions,
       comparison,
@@ -57,43 +57,43 @@ export default class SortingVisualisation {
       ordered,
       comparisonCount,
       operationCount,
-    })
+    });
 
     this._frames.push(nextFrame);
-  }
-
+  };
 
   incrementComparisons = () => {
     this._comparisonCount += 1;
-  }
+  };
 
   incrememntOperations = () => {
     this._operationCount += 1;
-  }
+  };
 
-  addOrderedItem = (item) => {
+  addOrderedItem = item => {
     this._orderedItems.push(item);
-  }
+  };
 
-  getCurrentPositioning = () => [...this._getLastPositioning()]
+  getCurrentPositioning = () => [...this._getLastPositioning()];
 
   getNextFrame = () => {
-    const frameIndex = Math.min(this._currentFrameIndex, this._frames.length - 1);
-    
+    const frameIndex = Math.min(
+      this._currentFrameIndex,
+      this._frames.length - 1
+    );
+
     if (this._currentFrameIndex < this._frames.length - 1) {
-      this._currentFrameIndex += 1; 
+      this._currentFrameIndex += 1;
     } else {
       this._finished = true;
     }
-    
+
     return this._frames[frameIndex];
-  }
+  };
 
-
-  isFinished = () => this._finished
+  isFinished = () => this._finished;
 
   getFrameIndex = () => this._currentFrameIndex;
 
-  isLastFrame = () => this._currentFrameIndex === (this._frames.length - 1)
-
+  isLastFrame = () => this._currentFrameIndex === this._frames.length - 1;
 }

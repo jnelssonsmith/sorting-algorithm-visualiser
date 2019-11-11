@@ -1,8 +1,8 @@
-@import "~ddbreakpoints/lib/dd.breakpoints";
+@import '~ddbreakpoints/lib/dd.breakpoints';
 
 body {
-  background-color: #F6F9FC;
-  color: #3b415e; 
+  background-color: #f6f9fc;
+  color: #3b415e;
 }
 
 .App {
@@ -18,7 +18,7 @@ body {
   min-height: 100vh;
   width: 100%;
   margin: 0 10px;
-  
+
   @include bp(m) {
     margin: 0 40px;
     max-width: 1200px;
@@ -30,10 +30,10 @@ body {
   }
 }
 
-
 .control-panel {
-  box-shadow: 0 6px 12px -2px rgba(50,50,93,.25), 0 3px 7px -3px rgba(0,0,0,.3);
-  background: #FFF;
+  box-shadow: 0 6px 12px -2px rgba(50, 50, 93, 0.25),
+    0 3px 7px -3px rgba(0, 0, 0, 0.3);
+  background: #fff;
   border-radius: 4px;
   margin-bottom: 20px;
   padding: 20px 40px 40px 40px;
@@ -79,7 +79,6 @@ h2 {
   margin-top: 20px;
   border-top: 1px solid #e3e8ee;
 
-
   @include bp(m) {
     flex-direction: row;
     justify-content: center;
@@ -111,8 +110,9 @@ h2 {
 }
 
 .visualiser-container {
-  box-shadow: 0 6px 12px -2px rgba(50,50,93,.25), 0 3px 7px -3px rgba(0,0,0,.3);
-  background: #FFF;
+  box-shadow: 0 6px 12px -2px rgba(50, 50, 93, 0.25),
+    0 3px 7px -3px rgba(0, 0, 0, 0.3);
+  background: #fff;
   border-radius: 4px;
   padding: 10px 20px;
 
@@ -145,13 +145,11 @@ h2 {
 
 .graph-bar--ordered {
   background-color: #8f6ed5;
-  
 }
 
 .graph-bar--highlight {
-  background-color: #FCE883;
+  background-color: #fce883;
 }
-
 
 header {
   display: flex;
@@ -179,11 +177,10 @@ footer > p {
   margin: 5px;
 }
 
-
 button {
   background: #6772e5;
   padding: 0 14px;
-  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
@@ -201,4 +198,3 @@ button[disabled] {
   background: #aab7c4;
   cursor: not-allowed;
 }
-

@@ -1,20 +1,29 @@
 import SortingVisualisation from '../models/SortingVisualisation';
 import swapElements from '../utils/swapElements';
 
-const quickSortVisualiser = (items) => {
+const quickSortVisualiser = items => {
   const visualisation = new SortingVisualisation(items, 'Swaps');
 
-  const finalVisualisation = quickSort(items, 0, items.length - 1, visualisation)
+  const finalVisualisation = quickSort(
+    items,
+    0,
+    items.length - 1,
+    visualisation
+  );
   return finalVisualisation;
-}
+};
 
 const quickSort = (arr, leftIndex, rightIndex, visualisation) => {
-  if(leftIndex < rightIndex) {
+  if (leftIndex < rightIndex) {
+    let [pivot, partitionVis] = partition(
+      arr,
+      leftIndex,
+      rightIndex,
+      visualisation
+    );
 
-    let [pivot, partitionVis] = partition(arr, leftIndex, rightIndex, visualisation)
-
-    const leftVis = quickSort(arr, leftIndex, pivot - 1, partitionVis)
-    const rightVis = quickSort(arr, pivot + 1, rightIndex, leftVis)
+    const leftVis = quickSort(arr, leftIndex, pivot - 1, partitionVis);
+    const rightVis = quickSort(arr, pivot + 1, rightIndex, leftVis);
 
     return rightVis;
   } else {
@@ -23,10 +32,10 @@ const quickSort = (arr, leftIndex, rightIndex, visualisation) => {
 
     return visualisation;
   }
-}
+};
 
 const partition = (arr, leftIndex, rightIndex, visualisation) => {
-  let pivot = rightIndex
+  let pivot = rightIndex;
 
   // show pivot
   visualisation.createFrame({
@@ -35,29 +44,29 @@ const partition = (arr, leftIndex, rightIndex, visualisation) => {
 
   // Set i to leftIndex - 1 so that it can access the first index in the event that the value at arr[0] is greater than arr[pivot]
   // Succeeding comments will expound upon the above comment
-  let i = leftIndex - 1
-  let j = leftIndex
+  let i = leftIndex - 1;
+  let j = leftIndex;
 
   // Increment j up to the index preceding the pivot
   while (j < pivot) {
     visualisation.createFrame({
-      comparison: [j,i],
+      comparison: [j, i],
       highlight: [pivot],
     });
 
     // If the value is greater than the pivot increment j
     if (arr[j] > arr[pivot]) {
-      j++
+      j++;
     } else {
-      i++
-      
+      i++;
+
       visualisation.createFrame({
         comparison: [i],
         operation: [j],
         highlight: [pivot],
       });
 
-      swapElements(arr, j, i)
+      swapElements(arr, j, i);
 
       visualisation.createFrame({
         updatedPositions: [...arr],
@@ -65,14 +74,13 @@ const partition = (arr, leftIndex, rightIndex, visualisation) => {
         operation: [i],
         highlight: [pivot],
       });
-      j++
+      j++;
 
       visualisation.createFrame({
         comparison: [i, j],
         highlight: [pivot],
       });
     }
-
   }
 
   visualisation.createFrame({
@@ -80,7 +88,7 @@ const partition = (arr, leftIndex, rightIndex, visualisation) => {
   });
 
   //The value at arr[i + 1] will be greater than the value of arr[pivot]
-  swapElements(arr, i + 1, pivot)
+  swapElements(arr, i + 1, pivot);
 
   visualisation.createFrame({
     updatedPositions: [...arr],
@@ -92,10 +100,7 @@ const partition = (arr, leftIndex, rightIndex, visualisation) => {
 
   //You return i + 1, as the values to the left of it are less than arr[i+1], and values to the right are greater than arr[i + 1]
   // As such, when the recursive quicksorts are called, the new sub arrays will not include this the previously used pivot value
-  return [
-    i + 1,
-    visualisation
-  ]
-}
+  return [i + 1, visualisation];
+};
 
 export default quickSortVisualiser;

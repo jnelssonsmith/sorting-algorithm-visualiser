@@ -1,20 +1,19 @@
 import SortingVisualisation from '../models/SortingVisualisation';
 import insertElement from '../utils/insertElement';
 
-const insertionSortVisualiser = (items) => {
+const insertionSortVisualiser = items => {
   const visualisation = new SortingVisualisation(items, 'Insertions');
 
   let mutableArr = items.map(i => i);
 
   // by default the first item is initially seen as sorted
   visualisation.createFrame({
-    highlight: [0]
+    highlight: [0],
   });
 
   for (let i = 1; i < mutableArr.length; i++) {
     let insertionIndex = i;
     for (let k = i - 1; k >= 0; k--) {
-
       visualisation.incrementComparisons();
       visualisation.createFrame({
         comparison: [k],
@@ -47,6 +46,6 @@ const insertionSortVisualiser = (items) => {
   visualisation.createFrame({});
 
   return visualisation;
-}
+};
 
 export default insertionSortVisualiser;

@@ -8,7 +8,6 @@ export default class Frame {
     comparisonCount,
     operationCount,
   }) {
-
     this._positioning = positioning;
     this._comparison = comparison;
     this._operation = operation;
@@ -18,11 +17,25 @@ export default class Frame {
     this._operationCount = operationCount;
   }
 
-  get positioning() { return this._positioning; }
-  get comparison() { return this._comparison; }
-  get operation() { return this._operation; }
-  get highlight() { return this._highlight; }
-  get ordered() { return this._ordered; }
-  get comparisonCount() { return this._comparisonCount; }
-  get operationCount() { return this._operationCount; }
+  get positioning() {
+    return this._positioning;
+  }
+  get comparison() {
+    return this._comparison;
+  }
+  get operation() {
+    return this._operation;
+  }
+  get highlight() {
+    return this._highlight;
+  }
+  get ordered() {
+    return this._ordered;
+  }
+  get comparisonCount() {
+    return this._comparisonCount;
+  }
+  get operationCount() {
+    return this._operationCount;
+  }
 }

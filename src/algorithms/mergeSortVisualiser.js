@@ -1,12 +1,12 @@
-import SortingVisualisation from '../models/SortingVisualisation'
+import SortingVisualisation from '../models/SortingVisualisation';
 import insertElement from '../utils/insertElement';
 
-const mergeSortVisualiser = (items) => {
-  const visualisation = new SortingVisualisation(items, 'Insertions')
+const mergeSortVisualiser = items => {
+  const visualisation = new SortingVisualisation(items, 'Insertions');
 
   const [_, finalVisualisation] = mergeSort(items, visualisation, 0, true);
   return finalVisualisation;
-}
+};
 
 const mergeSort = (arr, visualisation, offset, isFinalSort = false) => {
   if (arr.length === 1) {
@@ -24,12 +24,30 @@ const mergeSort = (arr, visualisation, offset, isFinalSort = false) => {
 
   // Using recursion to combine the left and right
   const [newLeft, leftUpdatedVis] = mergeSort(left, visualisation, offset);
-  const [newRight, rightUpdatedVis] = mergeSort(right, leftUpdatedVis, offset + middle);
+  const [newRight, rightUpdatedVis] = mergeSort(
+    right,
+    leftUpdatedVis,
+    offset + middle
+  );
 
-  return merge(newLeft, newRight, realLeftIndex, realRightIndex, rightUpdatedVis, isFinalSort);
-}
+  return merge(
+    newLeft,
+    newRight,
+    realLeftIndex,
+    realRightIndex,
+    rightUpdatedVis,
+    isFinalSort
+  );
+};
 
-const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visualisation, isFinalSort = false) => {
+const merge = (
+  leftArr,
+  rightArr,
+  leftRealStartIndex,
+  rightRealStartIndex,
+  visualisation,
+  isFinalSort = false
+) => {
   let leftIndex = 0;
   let rightIndex = 0;
   let results = [];
@@ -42,63 +60,76 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
   // initial animation to show what two sides are being compared
   visualisation.createFrame({
     highlight: leftArrIndices,
-  })
+  });
 
   visualisation.createFrame({
     highlight: rightArrIndices,
-  })
+  });
 
   visualisation.createFrame({
     highlight: [...leftArrIndices, ...rightArrIndices],
-  })
+  });
 
   while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
-
     visualisation.createFrame({
-      comparison: [leftIndex + leftRealStartIndex, rightIndex + rightRealStartIndex],
-    })
+      comparison: [
+        leftIndex + leftRealStartIndex,
+        rightIndex + rightRealStartIndex,
+      ],
+    });
 
-    if (leftArr[leftIndex] < rightArr[rightIndex] || rightIndex >= rightArr.length) {
-
+    if (
+      leftArr[leftIndex] < rightArr[rightIndex] ||
+      rightIndex >= rightArr.length
+    ) {
       visualisation.createFrame({
         comparison: [rightIndex + rightRealStartIndex],
         operation: [leftIndex + leftRealStartIndex],
-      })
+      });
 
       const positioning = visualisation.getCurrentPositioning();
-      insertElement(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
+      insertElement(
+        positioning,
+        leftArr[leftIndex],
+        leftRealStartIndex + results.length,
+        leftIndex + leftRealStartIndex + rightSideSwaps
+      );
 
       visualisation.createFrame({
         updatedPositions: [...positioning],
         operation: [leftRealStartIndex + results.length],
-      })
+      });
 
       if (isFinalSort) {
-        visualisation.addOrderedItem(leftRealStartIndex + results.length)
-        visualisation.createFrame({})
+        visualisation.addOrderedItem(leftRealStartIndex + results.length);
+        visualisation.createFrame({});
       }
 
       results.push(leftArr[leftIndex]);
       leftIndex++;
     } else {
-
       visualisation.createFrame({
         comparison: [leftIndex + leftRealStartIndex],
         operation: [rightIndex + rightRealStartIndex],
-      })
+      });
 
       const positioning = visualisation.getCurrentPositioning();
-      insertElement(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
+      insertElement(
+        positioning,
+        rightArr[rightIndex],
+        leftRealStartIndex + results.length,
+        rightIndex + rightRealStartIndex
+      );
       rightSideSwaps += 1;
 
       visualisation.createFrame({
         updatedPositions: [...positioning],
         operation: [rightRealStartIndex + results.length],
-      })
+      });
 
       if (isFinalSort) {
-        visualisation.addOrderedItem(leftRealStartIndex + results.length)
-        visualisation.createFrame({})
+        visualisation.addOrderedItem(leftRealStartIndex + results.length);
+        visualisation.createFrame({});
       }
 
       results.push(rightArr[rightIndex]);
@@ -109,16 +140,21 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
   if (rightIndex < rightArr.length) {
     while (rightIndex < rightArr.length) {
       const positioning = visualisation.getCurrentPositioning();
-      insertElement(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
+      insertElement(
+        positioning,
+        rightArr[rightIndex],
+        leftRealStartIndex + results.length,
+        rightIndex + rightRealStartIndex
+      );
       rightSideSwaps += 1;
 
       visualisation.createFrame({
         updatedPositions: [...positioning],
-      })
+      });
 
       if (isFinalSort) {
-        visualisation.addOrderedItem(leftRealStartIndex + results.length)
-        visualisation.createFrame({})
+        visualisation.addOrderedItem(leftRealStartIndex + results.length);
+        visualisation.createFrame({});
       }
 
       results.push(rightArr[rightIndex]);
@@ -127,15 +163,20 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
   } else {
     while (leftIndex < leftArr.length) {
       const positioning = visualisation.getCurrentPositioning();
-      insertElement(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
+      insertElement(
+        positioning,
+        leftArr[leftIndex],
+        leftRealStartIndex + results.length,
+        leftIndex + leftRealStartIndex + rightSideSwaps
+      );
 
       visualisation.createFrame({
         updatedPositions: [...positioning],
-      })
+      });
 
       if (isFinalSort) {
-        visualisation.addOrderedItem(leftRealStartIndex + results.length)
-        visualisation.createFrame({})
+        visualisation.addOrderedItem(leftRealStartIndex + results.length);
+        visualisation.createFrame({});
       }
 
       results.push(leftArr[leftIndex]);
@@ -143,12 +184,7 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
     }
   }
 
-  return [
-    results,
-    visualisation
-  ];
-}
+  return [results, visualisation];
+};
 
 export default mergeSortVisualiser;
-
-
