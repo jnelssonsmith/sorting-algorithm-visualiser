@@ -4,21 +4,21 @@
     "description": "Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.",
     "space": {
       "worstCase": {
-        "value": "",
+        "value": "1",
         "description": ""
       },
       "bestCase": {
-        "value": "",
+        "value": "1",
         "description": ""
       }
     },
     "time": {
       "worstCase": {
-        "value": "",
+        "value": "O(N^2)",
         "description": ""
       },
       "bestCase": {
-        "value": "",
+        "value": "O(N)",
         "description": ""
       }
     }
