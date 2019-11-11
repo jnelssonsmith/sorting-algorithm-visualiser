@@ -1,4 +1,5 @@
 import SortingVisualisation from '../models/SortingVisualisation'
+import insertElement from '../utils/insertElement';
 
 const mergeSortVisualiser = (items) => {
   const visualisation = new SortingVisualisation(items, 'Insertions')
@@ -65,7 +66,7 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
       })
 
       const positioning = visualisation.getCurrentPositioning();
-      insert(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
+      insertElement(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
 
       visualisation.createFrame({
         updatedPositions: [...positioning],
@@ -87,7 +88,7 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
       })
 
       const positioning = visualisation.getCurrentPositioning();
-      insert(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
+      insertElement(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
       rightSideSwaps += 1;
 
       visualisation.createFrame({
@@ -108,7 +109,7 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
   if (rightIndex < rightArr.length) {
     while (rightIndex < rightArr.length) {
       const positioning = visualisation.getCurrentPositioning();
-      insert(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
+      insertElement(positioning, rightArr[rightIndex], leftRealStartIndex + results.length, rightIndex + rightRealStartIndex);
       rightSideSwaps += 1;
 
       visualisation.createFrame({
@@ -126,7 +127,7 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
   } else {
     while (leftIndex < leftArr.length) {
       const positioning = visualisation.getCurrentPositioning();
-      insert(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
+      insertElement(positioning, leftArr[leftIndex], leftRealStartIndex + results.length, leftIndex + leftRealStartIndex + rightSideSwaps);
 
       visualisation.createFrame({
         updatedPositions: [...positioning],
@@ -146,11 +147,6 @@ const merge = (leftArr, rightArr, leftRealStartIndex, rightRealStartIndex, visua
     results,
     visualisation
   ];
-}
-
-const insert = (arr, element, insertionIndex, originalIndex) => {
-  arr.splice(originalIndex, 1)
-  arr.splice(insertionIndex, 0, element);
 }
 
 export default mergeSortVisualiser;

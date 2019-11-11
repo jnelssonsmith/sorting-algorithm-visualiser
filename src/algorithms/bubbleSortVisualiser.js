@@ -1,4 +1,5 @@
 import SortingVisualisation from '../models/SortingVisualisation';
+import swapElements from '../utils/swapElements';
 
 /**
  * Bubble sort
@@ -60,17 +61,6 @@ const bubbleSortVisualiser = (items) => {
   }
 
   return visualisation;
-}
-
-
-/**
- * Utility function for swaping two elements in an array
- * NB: modifies given array, is not immutable
- */
-const swapElements = (arr, indexA, indexB) => {
-  const temp = arr[indexA];
-  arr[indexA] = arr[indexB];
-  arr[indexB] = temp; 
 }
 
 export default bubbleSortVisualiser;

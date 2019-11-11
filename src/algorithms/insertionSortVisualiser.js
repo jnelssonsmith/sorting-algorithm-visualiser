@@ -1,4 +1,5 @@
 import SortingVisualisation from '../models/SortingVisualisation';
+import insertElement from '../utils/insertElement';
 
 const insertionSortVisualiser = (items) => {
   const visualisation = new SortingVisualisation(items, 'Insertions');
@@ -46,11 +47,6 @@ const insertionSortVisualiser = (items) => {
   visualisation.createFrame({});
 
   return visualisation;
-}
-
-const insertElement = (arr, element, insertionIndex, originalIndex) => {
-    arr.splice(originalIndex, 1)
-    arr.splice(insertionIndex, 0, element);
 }
 
 export default insertionSortVisualiser;

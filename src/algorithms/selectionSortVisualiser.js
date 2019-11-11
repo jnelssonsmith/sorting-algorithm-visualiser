@@ -1,4 +1,5 @@
 import SortingVisualisation from '../models/SortingVisualisation';
+import swapElements from '../utils/swapElements';
 
 /**
  * Selection sort
@@ -59,15 +60,3 @@ const selectionSortVisualiser = (items) => {
 }
 
 export default selectionSortVisualiser;
-
-
-
-/**
- * Utility function for swaping two elements in an array
- * NB: modifies given array, is not immutable
- */
-const swapElements = (arr, indexA, indexB) => {
-  const temp = arr[indexA];
-  arr[indexA] = arr[indexB];
-  arr[indexB] = temp; 
-}

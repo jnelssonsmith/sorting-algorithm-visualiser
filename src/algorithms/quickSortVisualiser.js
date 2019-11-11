@@ -1,4 +1,5 @@
 import SortingVisualisation from '../models/SortingVisualisation';
+import swapElements from '../utils/swapElements';
 
 const quickSortVisualiser = (items) => {
   const visualisation = new SortingVisualisation(items, 'Swaps');
@@ -96,12 +97,5 @@ const partition = (arr, leftIndex, rightIndex, visualisation) => {
     visualisation
   ]
 }
-
-const swapElements = (arr, indexA, indexB) => {
-  const temp = arr[indexA];
-  arr[indexA] = arr[indexB];
-  arr[indexB] = temp; 
-}
-
 
 export default quickSortVisualiser;
