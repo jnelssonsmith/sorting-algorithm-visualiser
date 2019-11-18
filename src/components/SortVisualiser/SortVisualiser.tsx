@@ -13,10 +13,16 @@ import AlgorithmDetailView from '../AlgorithmDetailView';
 import algorithmDetails from '../../config/algorithmDetails';
 import SortingVisualisation from '../../models/SortingVisualisation';
 import Frame from '../../models/Frame';
-import { SortVisualiserProps, SortVisualiserState } from './SortVisualiser.types';
+import {
+  SortVisualiserProps,
+  SortVisualiserState,
+} from './SortVisualiser.types';
 import { Algorithms, AlgorithmDetail } from '../../types';
 
-class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiserState> {
+class SortVisualiser extends React.Component<
+  SortVisualiserProps,
+  SortVisualiserState
+> {
   private animations: NodeJS.Timeout[];
   private visualisation: SortingVisualisation | null;
 
@@ -97,21 +103,15 @@ class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiser
     this.props.onReset();
   };
 
-  renderGraphBar = (
-    item: number,
-    index: number,
-    frame: Frame
-  ) => {
+  renderGraphBar = (item: number, index: number, frame: Frame) => {
     const classes = classNames({
       'graph-bar': true,
-      'graph-bar--comparison':
-      frame.comparison.includes(index),
+      'graph-bar--comparison': frame.comparison.includes(index),
       'graph-bar--swap': frame.operation.includes(index),
       'graph-bar--ordered': frame.ordered.includes(index),
-      'graph-bar--highlight':
-      frame.highlight.includes(index),
+      'graph-bar--highlight': frame.highlight.includes(index),
     });
-  
+
     return (
       <div
         key={`${index}-${classes}-${item}`}
@@ -125,7 +125,7 @@ class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiser
     const { currentFrame } = this.state;
     const { algorithm, visualisationInProgress, onRandomise } = this.props;
     const algorithmDetail: AlgorithmDetail = algorithmDetails[algorithm];
-    
+
     return (
       <div className="visualiser-container">
         <AlgorithmDetailView algorithmDetail={algorithmDetail} />

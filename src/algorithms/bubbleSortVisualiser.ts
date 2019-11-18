@@ -6,7 +6,10 @@ import swapElements from '../utils/swapElements';
  * @param {number[]} items - The number array to be sorted using bubble sort
  */
 const bubbleSortVisualiser = (items: number[]): SortingVisualisation => {
-  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Swaps');
+  const visualisation: SortingVisualisation = new SortingVisualisation(
+    items,
+    'Swaps'
+  );
 
   let mutableArr: number[] = items.map(i => i);
   for (let i: number = 0; i < mutableArr.length; i++) {

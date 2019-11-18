@@ -1,4 +1,4 @@
-import {AlgoOption, Algorithms} from '../types';
+import { AlgoOption, Algorithms } from '../types';
 
 /**
  * Users can pick from a range of sorting algorithms to see

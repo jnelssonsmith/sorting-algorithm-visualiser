@@ -4,15 +4,23 @@ import insertElement from '../utils/insertElement';
 type ArrVis = [number[], SortingVisualisation];
 
 const mergeSortVisualiser = (items: number[]): SortingVisualisation => {
-  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Insertions');
+  const visualisation: SortingVisualisation = new SortingVisualisation(
+    items,
+    'Insertions'
+  );
 
-  const [_, finalVisualisation]: ArrVis = mergeSort(items, visualisation, 0, true);
+  const [_, finalVisualisation]: ArrVis = mergeSort(
+    items,
+    visualisation,
+    0,
+    true
+  );
   return finalVisualisation;
 };
 
 const mergeSort = (
   arr: number[],
-  visualisation: SortingVisualisation, 
+  visualisation: SortingVisualisation,
   offset: number,
   isFinalSort: boolean = false
 ): ArrVis => {
@@ -30,7 +38,11 @@ const mergeSort = (
   const realRightIndex: number = middle + offset;
 
   // Using recursion to combine the left and right
-  const [newLeft, leftUpdatedVis]: ArrVis = mergeSort(left, visualisation, offset);
+  const [newLeft, leftUpdatedVis]: ArrVis = mergeSort(
+    left,
+    visualisation,
+    offset
+  );
   const [newRight, rightUpdatedVis]: ArrVis = mergeSort(
     right,
     leftUpdatedVis,
@@ -61,8 +73,12 @@ const merge = (
 
   let rightSideSwaps: number = 0;
 
-  const leftArrIndices: number[] = leftArr.map((_, i) => i + leftRealStartIndex);
-  const rightArrIndices: number[] = rightArr.map((_, i) => i + rightRealStartIndex);
+  const leftArrIndices: number[] = leftArr.map(
+    (_, i) => i + leftRealStartIndex
+  );
+  const rightArrIndices: number[] = rightArr.map(
+    (_, i) => i + rightRealStartIndex
+  );
 
   // initial animation to show what two sides are being compared
   visualisation.createFrame({

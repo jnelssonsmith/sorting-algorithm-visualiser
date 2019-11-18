@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.scss';
-import { ActionMeta, ValueType } from "react-select/src/types"; // tslint:disable-line no-submodule-imports
-
+import { ActionMeta, ValueType } from 'react-select/src/types'; // tslint:disable-line no-submodule-imports
 
 import SortVisualiser from './components/SortVisualiser';
 import ControlPanel from './components/ConrolPanel';
 
-import {AlgoOption, NumberOption} from './types';
+import { AlgoOption, NumberOption } from './types';
 
 import generateRandomArr from './utils/generateRandomArr';
 
@@ -20,11 +19,11 @@ const MIN_ARR_NUM: number = 10;
 interface AppProps {}
 
 interface AppState {
-  items: number[],
-  sizeOption: ValueType<NumberOption>,
-  algorithmOption: ValueType<AlgoOption>,
-  visualisationInProgress: boolean,
-  speedOption: ValueType<NumberOption>,
+  items: number[];
+  sizeOption: ValueType<NumberOption>;
+  algorithmOption: ValueType<AlgoOption>;
+  visualisationInProgress: boolean;
+  speedOption: ValueType<NumberOption>;
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -32,7 +31,11 @@ class App extends React.Component<AppProps, AppState> {
     super(props);
 
     this.state = {
-      items: generateRandomArr(defaultSizeOption.value, MIN_ARR_NUM, MAX_ARR_NUM),
+      items: generateRandomArr(
+        defaultSizeOption.value,
+        MIN_ARR_NUM,
+        MAX_ARR_NUM
+      ),
       sizeOption: defaultSizeOption,
       algorithmOption: defaultAlgorithmOption,
       visualisationInProgress: false,
@@ -40,7 +43,10 @@ class App extends React.Component<AppProps, AppState> {
     };
   }
 
-  public handleSizeChange = (option: ValueType<NumberOption>, _: ActionMeta): void => {
+  public handleSizeChange = (
+    option: ValueType<NumberOption>,
+    _: ActionMeta
+  ): void => {
     const numOption = option as NumberOption;
     this.setState({
       sizeOption: numOption,
@@ -48,7 +54,10 @@ class App extends React.Component<AppProps, AppState> {
     });
   };
 
-  public handleAlgorithmChange = (option: ValueType<AlgoOption>, _: ActionMeta): void => {
+  public handleAlgorithmChange = (
+    option: ValueType<AlgoOption>,
+    _: ActionMeta
+  ): void => {
     const strOption = option as AlgoOption;
     this.setState({
       algorithmOption: strOption,
@@ -60,12 +69,14 @@ class App extends React.Component<AppProps, AppState> {
       const prevSizeOpt = prevState.sizeOption as NumberOption;
       return {
         items: generateRandomArr(prevSizeOpt.value, MIN_ARR_NUM, MAX_ARR_NUM),
-      }
-      
+      };
     });
   };
 
-  public handleSpeedChange = (option: ValueType<NumberOption>, _: ActionMeta): void => {
+  public handleSpeedChange = (
+    option: ValueType<NumberOption>,
+    _: ActionMeta
+  ): void => {
     this.setState({
       speedOption: option,
     });
@@ -86,11 +97,7 @@ class App extends React.Component<AppProps, AppState> {
       speedOption,
     } = this.state;
 
-    if (
-      !sizeOption ||
-      !speedOption ||
-      !algorithmOption
-    ) {
+    if (!sizeOption || !speedOption || !algorithmOption) {
       return null;
     }
 

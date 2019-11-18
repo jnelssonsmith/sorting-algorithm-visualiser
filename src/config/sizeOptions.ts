@@ -1,9 +1,9 @@
-import {NumberOption} from '../types';
+import { NumberOption } from '../types';
 
 /**
- * The different size arrays that the visualiser 
+ * The different size arrays that the visualiser
  * supports, these could really be anything, but I feel
- * 10-200 gives a good sense of the differences between the 
+ * 10-200 gives a good sense of the differences between the
  * algorithms
  */
 const sizeOptions: NumberOption[] = [

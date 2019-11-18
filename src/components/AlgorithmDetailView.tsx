@@ -1,12 +1,14 @@
 import React from 'react';
 
-import {AlgorithmDetail} from '../types';
+import { AlgorithmDetail } from '../types';
 
-interface AlgorithmDetailViewProps  {
-  algorithmDetail: AlgorithmDetail
+interface AlgorithmDetailViewProps {
+  algorithmDetail: AlgorithmDetail;
 }
 
-const AlgorithmDetailView: React.SFC<AlgorithmDetailViewProps> = ({ algorithmDetail }): JSX.Element => {
+const AlgorithmDetailView: React.SFC<AlgorithmDetailViewProps> = ({
+  algorithmDetail,
+}): JSX.Element => {
   if (!algorithmDetail) {
     return <p>error loading details</p>;
   }

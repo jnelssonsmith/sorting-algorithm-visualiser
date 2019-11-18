@@ -1,4 +1,4 @@
 export type NumberOption = {
-  label: string,
-  value: number,
-}
+  label: string;
+  value: number;
+};

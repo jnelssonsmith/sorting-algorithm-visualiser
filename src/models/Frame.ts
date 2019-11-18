@@ -1,26 +1,24 @@
-
 /**
  * A FrameConfig does as the name implies, it is an object that is passed
  * to a Frame to configure it
  */
 type FrameConfig = {
-  positioning: number[],
-  comparison: number[],
-  operation: number[],
-  highlight: number[],
-  ordered: number[],
-  comparisonCount: number,
-  operationCount: number,
-}
+  positioning: number[];
+  comparison: number[];
+  operation: number[];
+  highlight: number[];
+  ordered: number[];
+  comparisonCount: number;
+  operationCount: number;
+};
 
 /**
- * A Frame represents one step in a sorting algorithm, 
+ * A Frame represents one step in a sorting algorithm,
  * it contains the current positioning of all the elements that are being sorted,
- * maintains some counts for the number of comparisons/operations and also 
+ * maintains some counts for the number of comparisons/operations and also
  * stores which elements are being compared, operated on, or should be highlighted.
  */
 class Frame {
-
   // the current ordering of the items
   private _positioning: number[];
 
@@ -38,7 +36,7 @@ class Frame {
 
   // the number of comparisons that have occured
   private _comparisonCount: number;
-  
+
   // the number of operations that have occured
   private _operationCount: number;
 
@@ -51,7 +49,6 @@ class Frame {
     comparisonCount,
     operationCount,
   }: FrameConfig) {
-
     this._positioning = positioning;
     this._comparison = comparison;
     this._operation = operation;

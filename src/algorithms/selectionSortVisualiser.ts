@@ -6,7 +6,10 @@ import swapElements from '../utils/swapElements';
  * @param {number[]} items - The number array to be sorted using selection sort
  */
 const selectionSortVisualiser = (items: number[]) => {
-  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Swaps');
+  const visualisation: SortingVisualisation = new SortingVisualisation(
+    items,
+    'Swaps'
+  );
 
   let mutableArr: number[] = items.map(i => i);
   for (let i = 0; i < mutableArr.length; i++) {

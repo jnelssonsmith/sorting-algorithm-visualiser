@@ -1,11 +1,11 @@
 import Frame from './Frame';
 
-type SortingVisualisationFrameConfig  = {
-  updatedPositions?: number[],
-  comparison?: number[],
-  operation?: number[],
-  highlight?: number[],
-}
+type SortingVisualisationFrameConfig = {
+  updatedPositions?: number[];
+  comparison?: number[];
+  operation?: number[];
+  highlight?: number[];
+};
 
 export default class SortingVisualisation {
   private _frames: Frame[];
@@ -15,7 +15,7 @@ export default class SortingVisualisation {
   private _operationLabel: string;
   private _finished: boolean;
   private _currentFrameIndex: number;
-  
+
   constructor(items: number[], opLabel: string) {
     this._frames = [];
     this._orderedItems = [];
@@ -86,7 +86,9 @@ export default class SortingVisualisation {
     this._orderedItems.push(item);
   };
 
-  public getCurrentPositioning = (): number[] => [...this._getLastPositioning()];
+  public getCurrentPositioning = (): number[] => [
+    ...this._getLastPositioning(),
+  ];
 
   public getNextFrame = (): Frame => {
     const frameIndex = Math.min(
@@ -107,5 +109,6 @@ export default class SortingVisualisation {
 
   public getFrameIndex = (): number => this._currentFrameIndex;
 
-  public isLastFrame = (): boolean => this._currentFrameIndex === this._frames.length - 1;
+  public isLastFrame = (): boolean =>
+    this._currentFrameIndex === this._frames.length - 1;
 }

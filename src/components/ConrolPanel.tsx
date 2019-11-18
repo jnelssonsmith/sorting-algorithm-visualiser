@@ -1,7 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { ActionMeta, ValueType } from "react-select/src/types"; // tslint:disable-line no-submodule-imports
-
+import { ActionMeta, ValueType } from 'react-select/src/types'; // tslint:disable-line no-submodule-imports
 
 import speedOptions from '../config/speedOptions';
 import algorithmOptions from '../config/algorithmOptions';
@@ -9,17 +8,24 @@ import sizeOptions from '../config/sizeOptions';
 
 import { NumberOption, AlgoOption } from '../types';
 
-
 interface ControlPanelProps {
-  onSizeChange: (value: ValueType<NumberOption>, actionMeta: ActionMeta) => void,
-  onAlgorithmChange: (value: ValueType<AlgoOption>, actionMeta: ActionMeta) => void,
-  onSpeedChange: (value: ValueType<NumberOption>, actionMeta: ActionMeta) => void,
-  disabled: boolean,
-  speedOption: NumberOption,
-  algorithmOption: AlgoOption,
-  sizeOption: NumberOption,
+  onSizeChange: (
+    value: ValueType<NumberOption>,
+    actionMeta: ActionMeta
+  ) => void;
+  onAlgorithmChange: (
+    value: ValueType<AlgoOption>,
+    actionMeta: ActionMeta
+  ) => void;
+  onSpeedChange: (
+    value: ValueType<NumberOption>,
+    actionMeta: ActionMeta
+  ) => void;
+  disabled: boolean;
+  speedOption: NumberOption;
+  algorithmOption: AlgoOption;
+  sizeOption: NumberOption;
 }
-
 
 const ControlPanel: React.SFC<ControlPanelProps> = ({
   onSizeChange,

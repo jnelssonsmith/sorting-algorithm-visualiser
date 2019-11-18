@@ -2,8 +2,8 @@ import { NumberOption } from '../types';
 
 /**
  * The speeds indicate how fast the animation plays back,
- * 5ms is about the threshold where playback stays smooth, 
- * and 1000ms / step is about as slow as I imagine anyone 
+ * 5ms is about the threshold where playback stays smooth,
+ * and 1000ms / step is about as slow as I imagine anyone
  * would ever want
  */
 const speedOptions: NumberOption[] = [

@@ -4,7 +4,10 @@ import swapElements from '../utils/swapElements';
 type NumVis = [number, SortingVisualisation];
 
 const quickSortVisualiser = (items: number[]) => {
-  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Swaps');
+  const visualisation: SortingVisualisation = new SortingVisualisation(
+    items,
+    'Swaps'
+  );
 
   const finalVisualisation: SortingVisualisation = quickSort(
     items,
@@ -29,8 +32,18 @@ const quickSort = (
       visualisation
     );
 
-    const leftVis: SortingVisualisation = quickSort(arr, leftIndex, pivot - 1, partitionVis);
-    const rightVis: SortingVisualisation = quickSort(arr, pivot + 1, rightIndex, leftVis);
+    const leftVis: SortingVisualisation = quickSort(
+      arr,
+      leftIndex,
+      pivot - 1,
+      partitionVis
+    );
+    const rightVis: SortingVisualisation = quickSort(
+      arr,
+      pivot + 1,
+      rightIndex,
+      leftVis
+    );
 
     return rightVis;
   } else {

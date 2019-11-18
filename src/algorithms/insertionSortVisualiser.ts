@@ -2,7 +2,10 @@ import SortingVisualisation from '../models/SortingVisualisation';
 import insertElement from '../utils/insertElement';
 
 const insertionSortVisualiser = (items: number[]): SortingVisualisation => {
-  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Insertions');
+  const visualisation: SortingVisualisation = new SortingVisualisation(
+    items,
+    'Insertions'
+  );
 
   let mutableArr: number[] = items.map(i => i);
 
