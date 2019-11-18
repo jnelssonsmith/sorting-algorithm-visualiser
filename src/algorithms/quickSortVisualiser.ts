@@ -1,10 +1,12 @@
 import SortingVisualisation from '../models/SortingVisualisation';
 import swapElements from '../utils/swapElements';
 
-const quickSortVisualiser = items => {
-  const visualisation = new SortingVisualisation(items, 'Swaps');
+type NumVis = [number, SortingVisualisation];
 
-  const finalVisualisation = quickSort(
+const quickSortVisualiser = (items: number[]) => {
+  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Swaps');
+
+  const finalVisualisation: SortingVisualisation = quickSort(
     items,
     0,
     items.length - 1,
@@ -13,17 +15,22 @@ const quickSortVisualiser = items => {
   return finalVisualisation;
 };
 
-const quickSort = (arr, leftIndex, rightIndex, visualisation) => {
+const quickSort = (
+  arr: number[],
+  leftIndex: number,
+  rightIndex: number,
+  visualisation: SortingVisualisation
+): SortingVisualisation => {
   if (leftIndex < rightIndex) {
-    let [pivot, partitionVis] = partition(
+    let [pivot, partitionVis]: NumVis = partition(
       arr,
       leftIndex,
       rightIndex,
       visualisation
     );
 
-    const leftVis = quickSort(arr, leftIndex, pivot - 1, partitionVis);
-    const rightVis = quickSort(arr, pivot + 1, rightIndex, leftVis);
+    const leftVis: SortingVisualisation = quickSort(arr, leftIndex, pivot - 1, partitionVis);
+    const rightVis: SortingVisualisation = quickSort(arr, pivot + 1, rightIndex, leftVis);
 
     return rightVis;
   } else {
@@ -34,8 +41,13 @@ const quickSort = (arr, leftIndex, rightIndex, visualisation) => {
   }
 };
 
-const partition = (arr, leftIndex, rightIndex, visualisation) => {
-  let pivot = rightIndex;
+const partition = (
+  arr: number[],
+  leftIndex: number,
+  rightIndex: number,
+  visualisation: SortingVisualisation
+): NumVis => {
+  let pivot: number = rightIndex;
 
   // show pivot
   visualisation.createFrame({
@@ -44,8 +56,8 @@ const partition = (arr, leftIndex, rightIndex, visualisation) => {
 
   // Set i to leftIndex - 1 so that it can access the first index in the event that the value at arr[0] is greater than arr[pivot]
   // Succeeding comments will expound upon the above comment
-  let i = leftIndex - 1;
-  let j = leftIndex;
+  let i: number = leftIndex - 1;
+  let j: number = leftIndex;
 
   // Increment j up to the index preceding the pivot
   while (j < pivot) {

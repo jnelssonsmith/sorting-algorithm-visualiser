@@ -36,25 +36,31 @@ class Frame {
     this._operationCount = operationCount;
   }
 
-  get positioning(): number[] {
+  public get positioning(): number[] {
     return this._positioning;
   }
-  get comparison(): number[] {
+
+  public get comparison(): number[] {
     return this._comparison;
   }
-  get operation(): number[] {
+
+  public get operation(): number[] {
     return this._operation;
   }
-  get highlight(): number[] {
+
+  public get highlight(): number[] {
     return this._highlight;
   }
-  get ordered(): number[] {
+
+  public get ordered(): number[] {
     return this._ordered;
   }
-  get comparisonCount(): number {
+
+  public get comparisonCount(): number {
     return this._comparisonCount;
   }
-  get operationCount(): number {
+
+  public get operationCount(): number {
     return this._operationCount;
   }
 }

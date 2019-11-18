@@ -1,52 +1,38 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import bubbleSortVisualiser from '../algorithms/bubbleSortVisualiser';
-import selectionSortVisualiser from '../algorithms/selectionSortVisualiser';
-import insertionSortVisualiser from '../algorithms/insertionSortVisualiser';
-import mergeSortVisualiser from '../algorithms/mergeSortVisualiser';
-import quickSortVisualiser from '../algorithms/quickSortVisualiser';
+import bubbleSortVisualiser from '../../algorithms/bubbleSortVisualiser';
+import selectionSortVisualiser from '../../algorithms/selectionSortVisualiser';
+import insertionSortVisualiser from '../../algorithms/insertionSortVisualiser';
+import mergeSortVisualiser from '../../algorithms/mergeSortVisualiser';
+import quickSortVisualiser from '../../algorithms/quickSortVisualiser';
 
-import AlgorithmDetailView from './AlgorithmDetailView';
-import algorithmDetails from '../data/algorithm-details.json';
-import SortingVisualisation from '../models/SortingVisualisation';
+import arrDifferent from '../../utils/arrDifferent';
 
-const renderGraphBar = (item, index, frameConfig) => {
-  const classes = classNames({
-    'graph-bar': true,
-    'graph-bar--comparison':
-      frameConfig && frameConfig.comparison.includes(index),
-    'graph-bar--swap': frameConfig && frameConfig.operation.includes(index),
-    'graph-bar--ordered': frameConfig && frameConfig.ordered.includes(index),
-    'graph-bar--highlight':
-      frameConfig && frameConfig.highlight.includes(index),
-  });
+import AlgorithmDetailView from '../AlgorithmDetailView';
+import algorithmDetails from '../../data/algorithmDetails';
+import SortingVisualisation from '../../models/SortingVisualisation';
+import Frame from '../../models/Frame';
 
-  return (
-    <div
-      key={`${index}-${classes}-${item}`}
-      style={{ height: `${item}%` }}
-      className={classes}
-    ></div>
-  );
-};
+interface SortVisualiserProps {
+  onReset: Function,
+  algorithm: string,
+  speed: number,
+  items: number[],
+  onRandomise: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+  visualisationInProgress: boolean,
+  onVisualisationStatusChange: Function,
+}
 
-const arrDifferent = (arr1, arr2) => {
-  if (arr1.length !== arr2.length) {
-    return true;
-  }
+interface SortVisualiserState {
+  currentFrame: Frame,
+}
 
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) {
-      return true;
-    }
-  }
+class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiserState> {
+  private animations: NodeJS.Timeout[];
+  private visualisation: SortingVisualisation | null;
 
-  return false;
-};
-
-class SortVisualiser extends React.Component {
-  constructor(props) {
+  constructor(props: SortVisualiserProps) {
     super(props);
 
     this.state = {
@@ -57,7 +43,7 @@ class SortVisualiser extends React.Component {
     this.visualisation = null;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: SortVisualiserProps) {
     if (arrDifferent(prevProps.items, this.props.items)) {
       this.setState({
         currentFrame: SortingVisualisation.getDefaultFrame(this.props.items),
@@ -65,8 +51,7 @@ class SortVisualiser extends React.Component {
     }
   }
 
-  getVisualiser(visualiser) {
-    console.log(visualiser);
+  getVisualiser(visualiser: string) {
     switch (visualiser) {
       case 'BUBBLE':
         return bubbleSortVisualiser;
@@ -102,7 +87,7 @@ class SortVisualiser extends React.Component {
       const frame = this.visualisation.getNextFrame();
       const isFinalFrame = this.visualisation.isLastFrame();
 
-      const anim = setTimeout(() => {
+      const anim: NodeJS.Timeout = setTimeout(() => {
         requestAnimationFrame(() => {
           if (isFinalFrame) {
             this.props.onVisualisationStatusChange(false);
@@ -124,21 +109,46 @@ class SortVisualiser extends React.Component {
     this.props.onReset();
   };
 
+  renderGraphBar = (
+    item: number,
+    index: number,
+    frame: Frame
+  ) => {
+    const classes = classNames({
+      'graph-bar': true,
+      'graph-bar--comparison':
+      frame.comparison.includes(index),
+      'graph-bar--swap': frame.operation.includes(index),
+      'graph-bar--ordered': frame.ordered.includes(index),
+      'graph-bar--highlight':
+      frame.highlight.includes(index),
+    });
+  
+    return (
+      <div
+        key={`${index}-${classes}-${item}`}
+        style={{ height: `${item}%` }}
+        className={classes}
+      ></div>
+    );
+  };
+
   render() {
     const { currentFrame } = this.state;
     const { algorithm, visualisationInProgress, onRandomise } = this.props;
-
+    const algorithmDetail = algorithmDetails[algorithm];
+    
     return (
       <div className="visualiser-container">
-        <AlgorithmDetailView algorithmDetails={algorithmDetails[algorithm]} />
+        <AlgorithmDetailView algorithmDetail={algorithmDetail} />
         <div className="operations-container">
           <p>Comparisons: {currentFrame.comparisonCount}</p>
-          <p>Swaps: {currentFrame.swapCount}</p>
+          <p>Swaps: {currentFrame.operationCount}</p>
         </div>
         <div className="graph-container">
           <div className="graph">
             {currentFrame.positioning.map((item, i) =>
-              renderGraphBar(item, i, currentFrame)
+              this.renderGraphBar(item, i, currentFrame)
             )}
           </div>
         </div>

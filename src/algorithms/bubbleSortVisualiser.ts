@@ -5,12 +5,12 @@ import swapElements from '../utils/swapElements';
  * Bubble sort
  * @param {number[]} items - The number array to be sorted using bubble sort
  */
-const bubbleSortVisualiser = items => {
-  const visualisation = new SortingVisualisation(items, 'Swaps');
+const bubbleSortVisualiser = (items: number[]): SortingVisualisation => {
+  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Swaps');
 
-  let mutableArr = items.map(i => i);
-  for (let i = 0; i < mutableArr.length; i++) {
-    for (let k = 0; k < mutableArr.length - i - 1; k++) {
+  let mutableArr: number[] = items.map(i => i);
+  for (let i: number = 0; i < mutableArr.length; i++) {
+    for (let k: number = 0; k < mutableArr.length - i - 1; k++) {
       /**
        * Push comparison frame for current
        * pair we are looking at
@@ -55,7 +55,7 @@ const bubbleSortVisualiser = items => {
      * At the end of the loop we know that the
      * last index is sorted so we add it to the ordered arr
      */
-    const orderedIndex = mutableArr.length - i - 1;
+    const orderedIndex: number = mutableArr.length - i - 1;
     visualisation.addOrderedItem(orderedIndex);
     visualisation.createFrame({});
   }

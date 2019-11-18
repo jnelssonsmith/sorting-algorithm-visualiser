@@ -1,30 +1,37 @@
 import SortingVisualisation from '../models/SortingVisualisation';
 import insertElement from '../utils/insertElement';
 
-const mergeSortVisualiser = items => {
-  const visualisation = new SortingVisualisation(items, 'Insertions');
+type ArrVis = [number[], SortingVisualisation];
 
-  const [_, finalVisualisation] = mergeSort(items, visualisation, 0, true);
+const mergeSortVisualiser = (items: number[]): SortingVisualisation => {
+  const visualisation: SortingVisualisation = new SortingVisualisation(items, 'Insertions');
+
+  const [_, finalVisualisation]: ArrVis = mergeSort(items, visualisation, 0, true);
   return finalVisualisation;
 };
 
-const mergeSort = (arr, visualisation, offset, isFinalSort = false) => {
+const mergeSort = (
+  arr: number[],
+  visualisation: SortingVisualisation, 
+  offset: number,
+  isFinalSort: boolean = false
+): ArrVis => {
   if (arr.length === 1) {
     return [arr, visualisation];
   }
 
-  const middle = Math.floor(arr.length / 2);
+  const middle: number = Math.floor(arr.length / 2);
 
   // This is where we will be dividing the array into left and right
-  const left = arr.slice(0, middle);
-  const right = arr.slice(middle);
+  const left: number[] = arr.slice(0, middle);
+  const right: number[] = arr.slice(middle);
 
-  const realLeftIndex = offset;
-  const realRightIndex = middle + offset;
+  const realLeftIndex: number = offset;
+  const realRightIndex: number = middle + offset;
 
   // Using recursion to combine the left and right
-  const [newLeft, leftUpdatedVis] = mergeSort(left, visualisation, offset);
-  const [newRight, rightUpdatedVis] = mergeSort(
+  const [newLeft, leftUpdatedVis]: ArrVis = mergeSort(left, visualisation, offset);
+  const [newRight, rightUpdatedVis]: ArrVis = mergeSort(
     right,
     leftUpdatedVis,
     offset + middle
@@ -41,21 +48,21 @@ const mergeSort = (arr, visualisation, offset, isFinalSort = false) => {
 };
 
 const merge = (
-  leftArr,
-  rightArr,
-  leftRealStartIndex,
-  rightRealStartIndex,
-  visualisation,
-  isFinalSort = false
-) => {
-  let leftIndex = 0;
-  let rightIndex = 0;
-  let results = [];
+  leftArr: number[],
+  rightArr: number[],
+  leftRealStartIndex: number,
+  rightRealStartIndex: number,
+  visualisation: SortingVisualisation,
+  isFinalSort: boolean = false
+): ArrVis => {
+  let leftIndex: number = 0;
+  let rightIndex: number = 0;
+  let results: number[] = [];
 
-  let rightSideSwaps = 0;
+  let rightSideSwaps: number = 0;
 
-  const leftArrIndices = leftArr.map((_, i) => i + leftRealStartIndex);
-  const rightArrIndices = rightArr.map((_, i) => i + rightRealStartIndex);
+  const leftArrIndices: number[] = leftArr.map((_, i) => i + leftRealStartIndex);
+  const rightArrIndices: number[] = rightArr.map((_, i) => i + rightRealStartIndex);
 
   // initial animation to show what two sides are being compared
   visualisation.createFrame({
@@ -87,7 +94,7 @@ const merge = (
         operation: [leftIndex + leftRealStartIndex],
       });
 
-      const positioning = visualisation.getCurrentPositioning();
+      const positioning: number[] = visualisation.getCurrentPositioning();
       insertElement(
         positioning,
         leftArr[leftIndex],
@@ -113,7 +120,7 @@ const merge = (
         operation: [rightIndex + rightRealStartIndex],
       });
 
-      const positioning = visualisation.getCurrentPositioning();
+      const positioning: number[] = visualisation.getCurrentPositioning();
       insertElement(
         positioning,
         rightArr[rightIndex],
@@ -139,7 +146,7 @@ const merge = (
 
   if (rightIndex < rightArr.length) {
     while (rightIndex < rightArr.length) {
-      const positioning = visualisation.getCurrentPositioning();
+      const positioning: number[] = visualisation.getCurrentPositioning();
       insertElement(
         positioning,
         rightArr[rightIndex],
@@ -162,7 +169,7 @@ const merge = (
     }
   } else {
     while (leftIndex < leftArr.length) {
-      const positioning = visualisation.getCurrentPositioning();
+      const positioning: number[] = visualisation.getCurrentPositioning();
       insertElement(
         positioning,
         leftArr[leftIndex],
