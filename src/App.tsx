@@ -1,110 +1,15 @@
 import React from 'react';
 import './App.scss';
-import { ActionMeta, ValueType } from 'react-select/src/types'; // tslint:disable-line no-submodule-imports
 
+// components
 import SortVisualiser from './components/SortVisualiser';
-import ControlPanel from './components/ConrolPanel';
-
-import { AlgoOption, NumberOption } from './types';
-
-import generateRandomArr from './utils/generateRandomArr';
-
-import { defaultSizeOption } from './config/sizeOptions';
-import { defaultAlgorithmOption } from './config/algorithmOptions';
-import { defaultSpeedOption } from './config/speedOptions';
-
-const MAX_ARR_NUM: number = 100;
-const MIN_ARR_NUM: number = 10;
 
 interface AppProps {}
 
-interface AppState {
-  items: number[];
-  sizeOption: ValueType<NumberOption>;
-  algorithmOption: ValueType<AlgoOption>;
-  visualisationInProgress: boolean;
-  speedOption: ValueType<NumberOption>;
-}
+interface AppState {}
 
 class App extends React.Component<AppProps, AppState> {
-  public constructor(props: AppProps) {
-    super(props);
-
-    this.state = {
-      items: generateRandomArr(
-        defaultSizeOption.value,
-        MIN_ARR_NUM,
-        MAX_ARR_NUM
-      ),
-      sizeOption: defaultSizeOption,
-      algorithmOption: defaultAlgorithmOption,
-      visualisationInProgress: false,
-      speedOption: defaultSpeedOption,
-    };
-  }
-
-  public handleSizeChange = (
-    option: ValueType<NumberOption>,
-    _: ActionMeta
-  ): void => {
-    const numOption = option as NumberOption;
-    this.setState({
-      sizeOption: numOption,
-      items: generateRandomArr(numOption.value, MIN_ARR_NUM, MAX_ARR_NUM),
-    });
-  };
-
-  public handleAlgorithmChange = (
-    option: ValueType<AlgoOption>,
-    _: ActionMeta
-  ): void => {
-    const strOption = option as AlgoOption;
-    this.setState({
-      algorithmOption: strOption,
-    });
-  };
-
-  public handleRandomise = (): void => {
-    this.setState(prevState => {
-      const prevSizeOpt = prevState.sizeOption as NumberOption;
-      return {
-        items: generateRandomArr(prevSizeOpt.value, MIN_ARR_NUM, MAX_ARR_NUM),
-      };
-    });
-  };
-
-  public handleSpeedChange = (
-    option: ValueType<NumberOption>,
-    _: ActionMeta
-  ): void => {
-    this.setState({
-      speedOption: option,
-    });
-  };
-
-  public handleVisualisationStatusChange = (isVisualising: boolean): void => {
-    this.setState({
-      visualisationInProgress: isVisualising,
-    });
-  };
-
   public render() {
-    const {
-      items,
-      algorithmOption,
-      visualisationInProgress,
-      sizeOption,
-      speedOption,
-    } = this.state;
-
-    if (!sizeOption || !speedOption || !algorithmOption) {
-      return null;
-    }
-
-    const safeSizeOpt = sizeOption as NumberOption;
-    const safeSpeedOpt = speedOption as NumberOption;
-    const safeAlgoOpt = algorithmOption as AlgoOption;
-
     return (
       <div className="App">
         <div className="layout">
@@ -118,24 +23,7 @@ class App extends React.Component<AppProps, AppState> {
             </p>
           </header>
           <main>
-            <ControlPanel
-              disabled={visualisationInProgress}
-              speedOption={safeSpeedOpt}
-              algorithmOption={safeAlgoOpt}
-              sizeOption={safeSizeOpt}
-              onSizeChange={this.handleSizeChange}
-              onSpeedChange={this.handleSpeedChange}
-              onAlgorithmChange={this.handleAlgorithmChange}
-            />
-            <SortVisualiser
-              onReset={this.handleRandomise}
-              algorithm={safeAlgoOpt.value}
-              speed={safeSpeedOpt.value}
-              items={items}
-              onRandomise={this.handleRandomise}
-              visualisationInProgress={visualisationInProgress}
-              onVisualisationStatusChange={this.handleVisualisationStatusChange}
-            />
+            <SortVisualiser />
           </main>
           <footer>
             <p>

@@ -1,156 +1,139 @@
 import React from 'react';
-import classNames from 'classnames';
+import { ActionMeta, ValueType } from 'react-select/src/types'; // tslint:disable-line no-submodule-imports
 
-import bubbleSortVisualiser from '../../algorithms/bubbleSortVisualiser';
-import selectionSortVisualiser from '../../algorithms/selectionSortVisualiser';
-import insertionSortVisualiser from '../../algorithms/insertionSortVisualiser';
-import mergeSortVisualiser from '../../algorithms/mergeSortVisualiser';
-import quickSortVisualiser from '../../algorithms/quickSortVisualiser';
+// config
+import { defaultSizeOption } from '../../config/sizeOptions';
+import { defaultAlgorithmOption } from '../../config/algorithmOptions';
+import { defaultSpeedOption } from '../../config/speedOptions';
 
-import arrDifferent from '../../utils/arrDifferent';
+// types
+import { AlgoOption, NumberOption } from '../../types';
 
-import AlgorithmDetailView from '../AlgorithmDetailView';
-import algorithmDetails from '../../config/algorithmDetails';
-import SortingVisualisation from '../../models/SortingVisualisation';
-import Frame from '../../models/Frame';
-import {
-  SortVisualiserProps,
-  SortVisualiserState,
-} from './SortVisualiser.types';
-import { Algorithms, AlgorithmDetail } from '../../types';
+// utils
+import generateRandomArr from '../../utils/generateRandomArr';
 
-class SortVisualiser extends React.Component<
-  SortVisualiserProps,
-  SortVisualiserState
-> {
-  private animations: NodeJS.Timeout[];
-  private visualisation: SortingVisualisation | null;
+// components
+import VisualisationController from '../VisualisationController';
+import ControlPanel from '../ConrolPanel';
 
-  constructor(props: SortVisualiserProps) {
+/**
+ * Here we define the max and min height of the random number
+ * arrays that we generate, we keep the minimum height > 0 to 
+ * make it easier to see each item
+ */
+const MAX_ARR_NUM: number = 100;
+const MIN_ARR_NUM: number = 10;
+
+interface SortVisualiserProps {}
+
+interface SortVisualiserState {
+  items: number[];
+  sizeOption: ValueType<NumberOption>;
+  algorithmOption: ValueType<AlgoOption>;
+  visualisationInProgress: boolean;
+  speedOption: ValueType<NumberOption>;
+}
+
+class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiserState> {
+  public constructor(props: SortVisualiserProps) {
     super(props);
 
     this.state = {
-      currentFrame: SortingVisualisation.getDefaultFrame(props.items),
+      items: generateRandomArr(
+        defaultSizeOption.value,
+        MIN_ARR_NUM,
+        MAX_ARR_NUM
+      ),
+      sizeOption: defaultSizeOption,
+      algorithmOption: defaultAlgorithmOption,
+      visualisationInProgress: false,
+      speedOption: defaultSpeedOption,
     };
-
-    this.animations = [];
-    this.visualisation = null;
   }
 
-  componentDidUpdate(prevProps: SortVisualiserProps) {
-    if (arrDifferent(prevProps.items, this.props.items)) {
-      this.setState({
-        currentFrame: SortingVisualisation.getDefaultFrame(this.props.items),
-      });
-    }
-  }
-
-  getVisualiser(visualiser: string) {
-    switch (visualiser) {
-      case Algorithms.BUBBLE:
-        return bubbleSortVisualiser;
-      case Algorithms.SELECTION:
-        return selectionSortVisualiser;
-      case Algorithms.INSERTION:
-        return insertionSortVisualiser;
-      case Algorithms.MERGE:
-        return mergeSortVisualiser;
-      case Algorithms.QUICK:
-        return quickSortVisualiser;
-      default:
-        return bubbleSortVisualiser;
-    }
-  }
-
-  clearAnimations() {
-    this.animations.forEach(anim => {
-      clearTimeout(anim);
+  public handleSizeChange = (
+    option: ValueType<NumberOption>,
+    _: ActionMeta
+  ): void => {
+    const numOption = option as NumberOption;
+    this.setState({
+      sizeOption: numOption,
+      items: generateRandomArr(numOption.value, MIN_ARR_NUM, MAX_ARR_NUM),
     });
-    this.animations = [];
-  }
-
-  handleVisualise = () => {
-    this.animations = [];
-    this.visualisation = this.getVisualiser(this.props.algorithm)(
-      this.props.items
-    );
-    this.props.onVisualisationStatusChange(true);
-
-    while (!this.visualisation.isFinished()) {
-      const frameIndex = this.visualisation.getFrameIndex();
-      const frame = this.visualisation.getNextFrame();
-      const isFinalFrame = this.visualisation.isLastFrame();
-
-      const anim: NodeJS.Timeout = setTimeout(() => {
-        requestAnimationFrame(() => {
-          if (isFinalFrame) {
-            this.props.onVisualisationStatusChange(false);
-          }
-
-          this.setState({
-            currentFrame: frame,
-          });
-        });
-      }, frameIndex * this.props.speed);
-
-      this.animations.push(anim);
-    }
   };
 
-  handleStop = () => {
-    this.clearAnimations();
-    this.props.onVisualisationStatusChange(false);
-    this.props.onReset();
+  public handleAlgorithmChange = (
+    option: ValueType<AlgoOption>,
+    _: ActionMeta
+  ): void => {
+    const strOption = option as AlgoOption;
+    this.setState({
+      algorithmOption: strOption,
+    });
   };
 
-  renderGraphBar = (item: number, index: number, frame: Frame) => {
-    const classes = classNames({
-      'graph-bar': true,
-      'graph-bar--comparison': frame.comparison.includes(index),
-      'graph-bar--swap': frame.operation.includes(index),
-      'graph-bar--ordered': frame.ordered.includes(index),
-      'graph-bar--highlight': frame.highlight.includes(index),
+  public handleRandomise = (): void => {
+    this.setState(prevState => {
+      const prevSizeOpt = prevState.sizeOption as NumberOption;
+      return {
+        items: generateRandomArr(prevSizeOpt.value, MIN_ARR_NUM, MAX_ARR_NUM),
+      };
     });
+  };
+
+  public handleSpeedChange = (
+    option: ValueType<NumberOption>,
+    _: ActionMeta
+  ): void => {
+    this.setState({
+      speedOption: option,
+    });
+  };
+
+  public handleVisualisationStatusChange = (isVisualising: boolean): void => {
+    this.setState({
+      visualisationInProgress: isVisualising,
+    });
+  };
+
+  public render() {
+    const {
+      items,
+      algorithmOption,
+      visualisationInProgress,
+      sizeOption,
+      speedOption,
+    } = this.state;
+
+    if (!sizeOption || !speedOption || !algorithmOption) {
+      return null;
+    }
+
+    const safeSizeOpt = sizeOption as NumberOption;
+    const safeSpeedOpt = speedOption as NumberOption;
+    const safeAlgoOpt = algorithmOption as AlgoOption;
 
     return (
-      <div
-        key={`${index}-${classes}-${item}`}
-        style={{ height: `${item}%` }}
-        className={classes}
-      ></div>
-    );
-  };
-
-  render() {
-    const { currentFrame } = this.state;
-    const { algorithm, visualisationInProgress, onRandomise } = this.props;
-    const algorithmDetail: AlgorithmDetail = algorithmDetails[algorithm];
-
-    return (
-      <div className="visualiser-container">
-        <AlgorithmDetailView algorithmDetail={algorithmDetail} />
-        <div className="operations-container">
-          <p>Comparisons: {currentFrame.comparisonCount}</p>
-          <p>Swaps: {currentFrame.operationCount}</p>
-        </div>
-        <div className="graph-container">
-          <div className="graph">
-            {currentFrame.positioning.map((item, i) =>
-              this.renderGraphBar(item, i, currentFrame)
-            )}
-          </div>
-        </div>
-        <div className="visualisation-controls">
-          {visualisationInProgress ? (
-            <button onClick={this.handleStop}>Stop</button>
-          ) : (
-            <button onClick={this.handleVisualise}>Visualise</button>
-          )}
-          <button disabled={visualisationInProgress} onClick={onRandomise}>
-            Randomise
-          </button>
-        </div>
-      </div>
+      <>
+        <ControlPanel
+          disabled={visualisationInProgress}
+          speedOption={safeSpeedOpt}
+          algorithmOption={safeAlgoOpt}
+          sizeOption={safeSizeOpt}
+          onSizeChange={this.handleSizeChange}
+          onSpeedChange={this.handleSpeedChange}
+          onAlgorithmChange={this.handleAlgorithmChange}
+        />
+        <VisualisationController
+          onReset={this.handleRandomise}
+          algorithm={safeAlgoOpt.value}
+          speed={safeSpeedOpt.value}
+          items={items}
+          onRandomise={this.handleRandomise}
+          visualisationInProgress={visualisationInProgress}
+          onVisualisationStatusChange={this.handleVisualisationStatusChange}
+        />
+      </>
     );
   }
 }

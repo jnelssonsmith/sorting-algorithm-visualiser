@@ -1,7 +1,7 @@
 import Frame from '../../models/Frame';
 import { Algorithms } from '../../types';
 
-export interface SortVisualiserProps {
+export interface VisualisationControllerProps {
   onReset: Function;
   algorithm: Algorithms;
   speed: number;
@@ -11,6 +11,6 @@ export interface SortVisualiserProps {
   onVisualisationStatusChange: Function;
 }
 
-export interface SortVisualiserState {
+export interface VisualisationControllerState {
   currentFrame: Frame;
 }
