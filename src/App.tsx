@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.scss';
-import { ActionMeta, OptionProps, ValueType } from "react-select/src/types"; // tslint:disable-line no-submodule-imports
+import { ActionMeta, ValueType } from "react-select/src/types"; // tslint:disable-line no-submodule-imports
 
 
 import SortVisualiser from './components/SortVisualiser';
 import ControlPanel from './components/ConrolPanel';
 
-import {StringOption, NumberOption} from './types';
+import {AlgoOption, NumberOption} from './types';
 
 import generateRandomArr from './utils/generateRandomArr';
 
@@ -22,7 +22,7 @@ interface AppProps {}
 interface AppState {
   items: number[],
   sizeOption: ValueType<NumberOption>,
-  algorithmOption: ValueType<StringOption>,
+  algorithmOption: ValueType<AlgoOption>,
   visualisationInProgress: boolean,
   speedOption: ValueType<NumberOption>,
 }
@@ -48,8 +48,8 @@ class App extends React.Component<AppProps, AppState> {
     });
   };
 
-  public handleAlgorithmChange = (option: ValueType<StringOption>, _: ActionMeta): void => {
-    const strOption = option as StringOption;
+  public handleAlgorithmChange = (option: ValueType<AlgoOption>, _: ActionMeta): void => {
+    const strOption = option as AlgoOption;
     this.setState({
       algorithmOption: strOption,
     });
@@ -96,7 +96,7 @@ class App extends React.Component<AppProps, AppState> {
 
     const safeSizeOpt = sizeOption as NumberOption;
     const safeSpeedOpt = speedOption as NumberOption;
-    const safeAlgoOpt = algorithmOption as StringOption;
+    const safeAlgoOpt = algorithmOption as AlgoOption;
 
     return (
       <div className="App">
@@ -114,7 +114,7 @@ class App extends React.Component<AppProps, AppState> {
             <ControlPanel
               disabled={visualisationInProgress}
               speedOption={safeSpeedOpt}
-              algorithmOption={algorithmOption as StringOption}
+              algorithmOption={safeAlgoOpt}
               sizeOption={safeSizeOpt}
               onSizeChange={this.handleSizeChange}
               onSpeedChange={this.handleSpeedChange}

@@ -1,4 +1,12 @@
-const speedOptions = [
+import { NumberOption } from '../types';
+
+/**
+ * The speeds indicate how fast the animation plays back,
+ * 5ms is about the threshold where playback stays smooth, 
+ * and 1000ms / step is about as slow as I imagine anyone 
+ * would ever want
+ */
+const speedOptions: NumberOption[] = [
   { value: 5, label: '5ms/step' },
   { value: 16, label: '16ms/step' },
   { value: 30, label: '30ms/step' },
@@ -9,5 +17,6 @@ const speedOptions = [
   { value: 1000, label: '1000ms/step' },
 ];
 
-export const defaultSpeedOption = speedOptions[0];
+// be as fast and smooth as possible by default, use 5ms
+export const defaultSpeedOption: NumberOption = speedOptions[0];
 export default speedOptions;

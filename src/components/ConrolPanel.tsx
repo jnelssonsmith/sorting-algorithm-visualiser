@@ -7,16 +7,16 @@ import speedOptions from '../config/speedOptions';
 import algorithmOptions from '../config/algorithmOptions';
 import sizeOptions from '../config/sizeOptions';
 
-import { NumberOption, StringOption } from '../types';
+import { NumberOption, AlgoOption } from '../types';
 
 
 interface ControlPanelProps {
   onSizeChange: (value: ValueType<NumberOption>, actionMeta: ActionMeta) => void,
-  onAlgorithmChange: (value: ValueType<StringOption>, actionMeta: ActionMeta) => void,
+  onAlgorithmChange: (value: ValueType<AlgoOption>, actionMeta: ActionMeta) => void,
   onSpeedChange: (value: ValueType<NumberOption>, actionMeta: ActionMeta) => void,
   disabled: boolean,
   speedOption: NumberOption,
-  algorithmOption: StringOption,
+  algorithmOption: AlgoOption,
   sizeOption: NumberOption,
 }
 

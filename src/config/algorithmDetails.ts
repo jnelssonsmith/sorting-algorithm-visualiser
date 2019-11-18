@@ -1,8 +1,8 @@
-import { AlgorithmDetail } from '../types';
+import { AlgorithmDetail, Algorithms } from '../types';
 
 
-const algorthmDetails: {[key: string]: AlgorithmDetail} = {
-  BUBBLE: {
+const algorthmDetails: {[key in Algorithms]: AlgorithmDetail} = {
+  [Algorithms.BUBBLE]: {
     title: 'Bubble Sort',
     description: 'Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted.',
     space: {
@@ -26,7 +26,7 @@ const algorthmDetails: {[key: string]: AlgorithmDetail} = {
       }
     }
   },
-  SELECTION: {
+  [Algorithms.SELECTION]: {
     title: 'Selection Sort',
     description: 'In computer science, selection sort is a sorting algorithm, specifically an in-place comparison sort. It has O time complexity, making it inefficient on large lists, and generally performs worse than the similar insertion sort.',
     space: {
@@ -50,7 +50,7 @@ const algorthmDetails: {[key: string]: AlgorithmDetail} = {
       }
     }
   },
-  INSERTION: {
+  [Algorithms.INSERTION]: {
     title: 'Insertion Sort',
     description: 'Insertion sort is a simple sorting algorithm that builds the final sorted array one item at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort. ',
     space: {
@@ -74,7 +74,7 @@ const algorthmDetails: {[key: string]: AlgorithmDetail} = {
       }
     }
   },
-  MERGE: {
+  [Algorithms.MERGE]: {
     title: 'Merge Sort',
     description: 'In computer science, merge sort is an efficient, general-purpose, comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the order of equal elements is the same in the input and output. Merge sort is a divide and conquer algorithm that was invented by John von Neumann in 1945.',
     space: {
@@ -98,7 +98,7 @@ const algorthmDetails: {[key: string]: AlgorithmDetail} = {
       }
     }
   },
-  QUICK: {
+  [Algorithms.QUICK]: {
     title: 'Quick Sort',
     description: 'Quicksort is an efficient sorting algorithm, serving as a systematic method for placing the elements of a random access file or an array in order. Developed by British computer scientist Tony Hoare in 1959 and published in 1961, it is still a commonly used algorithm for sorting.',
     space: {

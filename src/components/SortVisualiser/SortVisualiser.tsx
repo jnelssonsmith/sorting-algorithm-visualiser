@@ -10,23 +10,11 @@ import quickSortVisualiser from '../../algorithms/quickSortVisualiser';
 import arrDifferent from '../../utils/arrDifferent';
 
 import AlgorithmDetailView from '../AlgorithmDetailView';
-import algorithmDetails from '../../data/algorithmDetails';
+import algorithmDetails from '../../config/algorithmDetails';
 import SortingVisualisation from '../../models/SortingVisualisation';
 import Frame from '../../models/Frame';
-
-interface SortVisualiserProps {
-  onReset: Function,
-  algorithm: string,
-  speed: number,
-  items: number[],
-  onRandomise: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
-  visualisationInProgress: boolean,
-  onVisualisationStatusChange: Function,
-}
-
-interface SortVisualiserState {
-  currentFrame: Frame,
-}
+import { SortVisualiserProps, SortVisualiserState } from './SortVisualiser.types';
+import { Algorithms, AlgorithmDetail } from '../../types';
 
 class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiserState> {
   private animations: NodeJS.Timeout[];
@@ -53,15 +41,15 @@ class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiser
 
   getVisualiser(visualiser: string) {
     switch (visualiser) {
-      case 'BUBBLE':
+      case Algorithms.BUBBLE:
         return bubbleSortVisualiser;
-      case 'SELECTION':
+      case Algorithms.SELECTION:
         return selectionSortVisualiser;
-      case 'INSERTION':
+      case Algorithms.INSERTION:
         return insertionSortVisualiser;
-      case 'MERGE':
+      case Algorithms.MERGE:
         return mergeSortVisualiser;
-      case 'QUICK':
+      case Algorithms.QUICK:
         return quickSortVisualiser;
       default:
         return bubbleSortVisualiser;
@@ -136,7 +124,7 @@ class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiser
   render() {
     const { currentFrame } = this.state;
     const { algorithm, visualisationInProgress, onRandomise } = this.props;
-    const algorithmDetail = algorithmDetails[algorithm];
+    const algorithmDetail: AlgorithmDetail = algorithmDetails[algorithm];
     
     return (
       <div className="visualiser-container">
