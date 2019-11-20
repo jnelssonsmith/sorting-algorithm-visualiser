@@ -3,9 +3,8 @@
  * and insert it in at a new index in the array
  *
  * @param arr - array of items
- * @param element - the value of the 
- * @param insertionIndex 
- * @param originalIndex 
+ * @param insertionIndex - the index of where to move the item to within the array
+ * @param originalIndex - the index of the item we want to change position
  */
 const changeElementPosition = (
   arr: number[],
