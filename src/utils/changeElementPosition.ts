@@ -11,7 +11,6 @@ const changeElementPosition = (
   insertionIndex: number,
   originalIndex: number
 ) => {
-
   const element = arr[originalIndex];
   arr.splice(originalIndex, 1);
   arr.splice(insertionIndex, 0, element);

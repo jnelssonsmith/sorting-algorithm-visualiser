@@ -1,2 +1,2 @@
-import VisualisationController from "./VisualisationController";
+import VisualisationController from './VisualisationController';
 export default VisualisationController;

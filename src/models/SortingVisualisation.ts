@@ -1,12 +1,12 @@
 import Frame from './Frame';
 
 /**
- * The configuration object that can be passed to 
+ * The configuration object that can be passed to
  * the SortingVisualisation when adding a Frame.
- * 
+ *
  * This has less options than the underlying frame config
- * as we can intelligently use the existing values that 
- * are stored in the class variables if not provided by the 
+ * as we can intelligently use the existing values that
+ * are stored in the class variables if not provided by the
  * user
  */
 type SortingVisualisationFrameConfig = {
@@ -17,16 +17,15 @@ type SortingVisualisationFrameConfig = {
 };
 
 /**
- * A SortingVisualisation allows you to build a visualisation 
- * made up of 'Frames', which are really just snapshots of 
+ * A SortingVisualisation allows you to build a visualisation
+ * made up of 'Frames', which are really just snapshots of
  * the state of an array at different stages during a sort
- * 
- * Frames can be added via the createFrame api, and once 
- * the visualisation is complete, you can request the 
+ *
+ * Frames can be added via the createFrame api, and once
+ * the visualisation is complete, you can request the
  * frames as needed via the getNextFrame api
  */
 export default class SortingVisualisation {
-
   // the visualisation frames
   private _frames: Frame[];
 
@@ -48,13 +47,12 @@ export default class SortingVisualisation {
   // tracks what frame the requesting service is up to
   private _currentFrameIndex: number;
 
-
   /**
-   * When the Visualisation is instantiated 
-   * all we need is the items and the label for the 
+   * When the Visualisation is instantiated
+   * all we need is the items and the label for the
    * type of operation that occurs, we set the internal
    * variables accordingly and push an initial frame
-   * 
+   *
    * @param items - array of numbers initially
    * @param opLabel - label of operation used in algo
    */
@@ -82,7 +80,7 @@ export default class SortingVisualisation {
 
   /**
    * Used for when you want to display a
-   * static represensation of the array before the 
+   * static represensation of the array before the
    * visualisation has begun/been fully created
    */
   static getDefaultFrame = (items: number[]): Frame =>
@@ -96,7 +94,6 @@ export default class SortingVisualisation {
       operationCount: 0,
     });
 
-
   /**
    * Returns the positioning last recorded in a frame or
    * an empty array if no positioning has ever been recorded
@@ -108,13 +105,14 @@ export default class SortingVisualisation {
   };
 
   /**
-   * Creates a new frame based on the given config, 
-   * we set defaults for all the arguments in the 
-   * config object so users of the api can provide an 
+   * Creates a new frame based on the given config,
+   * we set defaults for all the arguments in the
+   * config object so users of the api can provide an
    * object that only includes the aspects they want to change
    */
-  public createFrame = (configObj: SortingVisualisationFrameConfig = {}): void => {
-    
+  public createFrame = (
+    configObj: SortingVisualisationFrameConfig = {}
+  ): void => {
     const {
       updatedPositions = [...this._getLastPositioning()],
       comparison = [],

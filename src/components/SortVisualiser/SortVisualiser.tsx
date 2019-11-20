@@ -8,7 +8,10 @@ import { defaultSpeedOption } from '../../config/speedOptions';
 
 // types
 import { AlgoOption, NumberOption } from '../../types';
-import { SortVisualiserProps, SortVisualiserState } from './SortVisualiser.types';
+import {
+  SortVisualiserProps,
+  SortVisualiserState,
+} from './SortVisualiser.types';
 
 // utils
 import generateRandomArr from '../../utils/generateRandomArr';
@@ -19,13 +22,16 @@ import ControlPanel from '../ConrolPanel';
 
 /**
  * Here we define the max and min height of the random number
- * arrays that we generate, we keep the minimum height > 0 to 
+ * arrays that we generate, we keep the minimum height > 0 to
  * make it easier to see each item
  */
 const MAX_ARR_NUM: number = 100;
 const MIN_ARR_NUM: number = 10;
 
-class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiserState> {
+class SortVisualiser extends React.Component<
+  SortVisualiserProps,
+  SortVisualiserState
+> {
   public constructor(props: SortVisualiserProps) {
     super(props);
 

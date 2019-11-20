@@ -1,5 +1,5 @@
 /**
- * Object used to drive selection UI, things like 
+ * Object used to drive selection UI, things like
  * selecting speed options or length options
  */
 export type NumberOption = {

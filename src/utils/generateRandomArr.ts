@@ -1,7 +1,7 @@
 /**
  * Will generate an array of pseudo random numbers of the specified length
  * and between the given bounds
- * 
+ *
  * @param length - length of array you want to generate
  * @param min - min value any element in the array can be
  * @param max - max value any element in the array can be
