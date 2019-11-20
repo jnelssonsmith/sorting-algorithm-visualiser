@@ -48,7 +48,7 @@ const quickSort = (
     return rightVis;
   } else {
     visualisation.addOrderedItem(rightIndex);
-    visualisation.createFrame({});
+    visualisation.createFrame();
 
     return visualisation;
   }
@@ -121,7 +121,7 @@ const partition = (
   });
 
   visualisation.addOrderedItem(i + 1);
-  visualisation.createFrame({});
+  visualisation.createFrame();
 
   //You return i + 1, as the values to the left of it are less than arr[i+1], and values to the right are greater than arr[i + 1]
   // As such, when the recursive quicksorts are called, the new sub arrays will not include this the previously used pivot value

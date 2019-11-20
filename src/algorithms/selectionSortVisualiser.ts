@@ -54,7 +54,7 @@ const selectionSortVisualiser = (items: number[]) => {
     }
 
     visualisation.addOrderedItem(i);
-    visualisation.createFrame({});
+    visualisation.createFrame();
   }
 
   return visualisation;

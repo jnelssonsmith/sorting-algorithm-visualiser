@@ -124,7 +124,7 @@ const merge = (
 
       if (isFinalSort) {
         visualisation.addOrderedItem(leftRealStartIndex + results.length);
-        visualisation.createFrame({});
+        visualisation.createFrame();
       }
 
       results.push(leftArr[leftIndex]);
@@ -150,7 +150,7 @@ const merge = (
 
       if (isFinalSort) {
         visualisation.addOrderedItem(leftRealStartIndex + results.length);
-        visualisation.createFrame({});
+        visualisation.createFrame();
       }
 
       results.push(rightArr[rightIndex]);
@@ -174,7 +174,7 @@ const merge = (
 
       if (isFinalSort) {
         visualisation.addOrderedItem(leftRealStartIndex + results.length);
-        visualisation.createFrame({});
+        visualisation.createFrame();
       }
 
       results.push(rightArr[rightIndex]);
@@ -195,7 +195,7 @@ const merge = (
 
       if (isFinalSort) {
         visualisation.addOrderedItem(leftRealStartIndex + results.length);
-        visualisation.createFrame({});
+        visualisation.createFrame();
       }
 
       results.push(leftArr[leftIndex]);

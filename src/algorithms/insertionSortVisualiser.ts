@@ -46,7 +46,7 @@ const insertionSortVisualiser = (items: number[]): SortingVisualisation => {
     visualisation.addOrderedItem(i);
   }
 
-  visualisation.createFrame({});
+  visualisation.createFrame();
 
   return visualisation;
 };

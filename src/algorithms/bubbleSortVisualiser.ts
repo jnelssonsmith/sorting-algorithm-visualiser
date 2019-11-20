@@ -60,7 +60,7 @@ const bubbleSortVisualiser = (items: number[]): SortingVisualisation => {
      */
     const orderedIndex: number = mutableArr.length - i - 1;
     visualisation.addOrderedItem(orderedIndex);
-    visualisation.createFrame({});
+    visualisation.createFrame();
   }
 
   return visualisation;
