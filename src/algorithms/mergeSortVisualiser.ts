@@ -113,7 +113,6 @@ const merge = (
       const positioning: number[] = visualisation.getCurrentPositioning();
       changeElementPosition(
         positioning,
-        leftArr[leftIndex],
         leftRealStartIndex + results.length,
         leftIndex + leftRealStartIndex + rightSideSwaps
       );
@@ -139,7 +138,6 @@ const merge = (
       const positioning: number[] = visualisation.getCurrentPositioning();
       changeElementPosition(
         positioning,
-        rightArr[rightIndex],
         leftRealStartIndex + results.length,
         rightIndex + rightRealStartIndex
       );
@@ -165,7 +163,6 @@ const merge = (
       const positioning: number[] = visualisation.getCurrentPositioning();
       changeElementPosition(
         positioning,
-        rightArr[rightIndex],
         leftRealStartIndex + results.length,
         rightIndex + rightRealStartIndex
       );
@@ -188,7 +185,6 @@ const merge = (
       const positioning: number[] = visualisation.getCurrentPositioning();
       changeElementPosition(
         positioning,
-        leftArr[leftIndex],
         leftRealStartIndex + results.length,
         leftIndex + leftRealStartIndex + rightSideSwaps
       );

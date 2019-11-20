@@ -35,7 +35,7 @@ const insertionSortVisualiser = (items: number[]): SortingVisualisation => {
     }
 
     visualisation.incrememntOperations();
-    changeElementPosition(mutableArr, mutableArr[i], insertionIndex, i);
+    changeElementPosition(mutableArr, insertionIndex, i);
     visualisation.createFrame({
       updatedPositions: [...mutableArr],
       highlight: [insertionIndex],
