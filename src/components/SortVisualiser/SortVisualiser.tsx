@@ -8,6 +8,7 @@ import { defaultSpeedOption } from '../../config/speedOptions';
 
 // types
 import { AlgoOption, NumberOption } from '../../types';
+import { SortVisualiserProps, SortVisualiserState } from './SortVisualiser.types';
 
 // utils
 import generateRandomArr from '../../utils/generateRandomArr';
@@ -23,16 +24,6 @@ import ControlPanel from '../ConrolPanel';
  */
 const MAX_ARR_NUM: number = 100;
 const MIN_ARR_NUM: number = 10;
-
-interface SortVisualiserProps {}
-
-interface SortVisualiserState {
-  items: number[];
-  sizeOption: ValueType<NumberOption>;
-  algorithmOption: ValueType<AlgoOption>;
-  visualisationInProgress: boolean;
-  speedOption: ValueType<NumberOption>;
-}
 
 class SortVisualiser extends React.Component<SortVisualiserProps, SortVisualiserState> {
   public constructor(props: SortVisualiserProps) {

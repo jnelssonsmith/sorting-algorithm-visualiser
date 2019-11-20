@@ -1,5 +1,5 @@
 import SortingVisualisation from '../models/SortingVisualisation';
-import insertElement from '../utils/insertElement';
+import changeElementPosition from '../utils/changeElementPosition';
 
 const insertionSortVisualiser = (items: number[]): SortingVisualisation => {
   const visualisation: SortingVisualisation = new SortingVisualisation(
@@ -35,7 +35,7 @@ const insertionSortVisualiser = (items: number[]): SortingVisualisation => {
     }
 
     visualisation.incrememntOperations();
-    insertElement(mutableArr, mutableArr[i], insertionIndex, i);
+    changeElementPosition(mutableArr, mutableArr[i], insertionIndex, i);
     visualisation.createFrame({
       updatedPositions: [...mutableArr],
       highlight: [insertionIndex],

@@ -1,5 +1,5 @@
 import SortingVisualisation from '../models/SortingVisualisation';
-import insertElement from '../utils/insertElement';
+import changeElementPosition from '../utils/changeElementPosition';
 
 type ArrVis = [number[], SortingVisualisation];
 
@@ -111,7 +111,7 @@ const merge = (
       });
 
       const positioning: number[] = visualisation.getCurrentPositioning();
-      insertElement(
+      changeElementPosition(
         positioning,
         leftArr[leftIndex],
         leftRealStartIndex + results.length,
@@ -137,7 +137,7 @@ const merge = (
       });
 
       const positioning: number[] = visualisation.getCurrentPositioning();
-      insertElement(
+      changeElementPosition(
         positioning,
         rightArr[rightIndex],
         leftRealStartIndex + results.length,
@@ -163,7 +163,7 @@ const merge = (
   if (rightIndex < rightArr.length) {
     while (rightIndex < rightArr.length) {
       const positioning: number[] = visualisation.getCurrentPositioning();
-      insertElement(
+      changeElementPosition(
         positioning,
         rightArr[rightIndex],
         leftRealStartIndex + results.length,
@@ -186,7 +186,7 @@ const merge = (
   } else {
     while (leftIndex < leftArr.length) {
       const positioning: number[] = visualisation.getCurrentPositioning();
-      insertElement(
+      changeElementPosition(
         positioning,
         leftArr[leftIndex],
         leftRealStartIndex + results.length,
