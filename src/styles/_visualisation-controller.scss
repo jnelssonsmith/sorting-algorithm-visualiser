@@ -1,0 +1,42 @@
+.visualisation-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 20px;
+  border-top: 1px solid $border-colour;
+
+  @include bp(m) {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  & > button {
+    width: 100%;
+    margin-top: 10px;
+    margin-right: unset;
+
+    @include bp(m) {
+      width: 150px;
+      margin-top: unset;
+      margin-right: 20px;
+    }
+  }
+}
+
+.visualiser-container {
+  box-shadow: 0 6px 12px -2px rgba(50, 50, 93, 0.25),
+    0 3px 7px -3px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  border-radius: 4px;
+  padding: 10px 20px;
+
+  @include bp(xl) {
+    padding: 20px 40px;
+  }
+}
+
+.algorithm-details {
+  margin-bottom: 20px;
+  border-bottom: 1px solid $border-colour;
+}

@@ -4,7 +4,6 @@
 - clean up implementation of quick sort - reduce code duplication
  in handling of left over left/right arr els
 - clean up html - add title, check semantics, float bottom issue etc
-- clean up scss - split files, check bem etc
 - add favicon
 - remove uneeded cra assets/code
 - replace this with proper readme

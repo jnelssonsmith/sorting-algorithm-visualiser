@@ -1,0 +1,42 @@
+.graph-container {
+  padding: unset;
+
+  @include bp(m) {
+    padding: 0 50px;
+  }
+
+  @include bp(xl) {
+    padding: 0 70px;
+  }
+}
+
+.graph {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  height: 300px;
+}
+
+.graph-bar {
+  margin-right: 1px;
+  background-color: $graph-bar-bg;
+  flex: 1;
+
+  &--comparison {
+    background-color: $graph-green;
+  }
+  
+  &--swap {
+    background-color: $graph-red;
+  }
+  
+  &--ordered {
+    background-color: $graph-purple;
+  }
+  
+  &--highlight {
+    background-color: $graph-yellow;
+  }
+}
+

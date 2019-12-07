@@ -1,0 +1,55 @@
+body {
+  background-color: $brand-white-3;
+  color: $brand-text-dark;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+footer > p {
+  margin: 5px;
+}
+
+button {
+  background: $btn-bg;
+  padding: 0 14px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: $btn-text;
+  height: 40px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+h2 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background: $btn-bg-hover;
+}
+
+button[disabled] {
+  background: $btn-bg-disabled;
+  cursor: not-allowed;
+}

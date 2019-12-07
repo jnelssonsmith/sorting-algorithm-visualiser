@@ -1,0 +1,30 @@
+.control-panel {
+  box-shadow: 0 6px 12px -2px rgba(50, 50, 93, 0.25),
+    0 3px 7px -3px rgba(0, 0, 0, 0.3);
+  background: $brand-white;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 20px 40px 40px 40px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.control {
+  margin-top: 20px;
+  margin-right: unset;
+  width: 100%;
+
+  @include bp(l) {
+    width: 200px;
+    margin-top: unset;
+    margin-right: 20px;
+  }
+}
+
+.select {
+  margin-top: 5px;
+}
