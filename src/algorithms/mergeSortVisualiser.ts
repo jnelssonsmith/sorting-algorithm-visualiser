@@ -103,6 +103,7 @@ const merge = (
         rightTargetIndex,
       ],
     });
+    visualisation.incrementComparisons();
 
     // choose from left side if left array element is smaller, or the
     // right arr has run out
@@ -127,6 +128,7 @@ const merge = (
       leftRealStartIndex + results.length,
       updatedPosition
     );
+    visualisation.incrememntOperations();
 
     if (!pickFromLeft) {
       rightSideSwaps += 1;

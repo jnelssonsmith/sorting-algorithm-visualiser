@@ -129,10 +129,6 @@ class VisualisationController extends React.Component<
     return (
       <div className="visualiser-container">
         <AlgorithmDetailView algorithmDetail={algorithmDetail} />
-        <div className="operations-container">
-          <p>Comparisons: {currentFrame.comparisonCount}</p>
-          <p>Swaps: {currentFrame.operationCount}</p>
-        </div>
         <div className="graph-container">
           <div className="graph">
             {currentFrame.positioning.map((item, i) =>
