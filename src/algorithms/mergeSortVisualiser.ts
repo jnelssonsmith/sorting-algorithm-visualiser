@@ -94,65 +94,64 @@ const merge = (
   });
 
   while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
+    const leftTargetIndex = leftIndex + leftRealStartIndex;
+    const rightTargetIndex = rightIndex + rightRealStartIndex;
+    
     visualisation.createFrame({
       comparison: [
-        leftIndex + leftRealStartIndex,
-        rightIndex + rightRealStartIndex,
+        leftTargetIndex,
+        rightTargetIndex,
       ],
     });
 
-    if (
+    // choose from left side if left array element is smaller, or the
+    // right arr has run out
+    const pickFromLeft = (
       leftArr[leftIndex] < rightArr[rightIndex] ||
       rightIndex >= rightArr.length
-    ) {
-      visualisation.createFrame({
-        comparison: [rightIndex + rightRealStartIndex],
-        operation: [leftIndex + leftRealStartIndex],
-      });
+    )
 
-      const positioning: number[] = visualisation.getCurrentPositioning();
-      changeElementPosition(
-        positioning,
-        leftRealStartIndex + results.length,
-        leftIndex + leftRealStartIndex + rightSideSwaps
-      );
+    visualisation.createFrame({
+      comparison: [pickFromLeft ? rightTargetIndex : leftTargetIndex],
+      operation: [pickFromLeft ? leftTargetIndex : rightTargetIndex],
+    });
 
-      visualisation.createFrame({
-        updatedPositions: [...positioning],
-        operation: [leftRealStartIndex + results.length],
-      });
+    const positioning: number[] = visualisation.getCurrentPositioning();
 
-      if (isFinalSort) {
-        visualisation.addOrderedItem(leftRealStartIndex + results.length);
-        visualisation.createFrame();
-      }
+    const updatedPosition = pickFromLeft
+      ? leftTargetIndex + rightSideSwaps
+      : rightTargetIndex;
+  
+    changeElementPosition(
+      positioning,
+      leftRealStartIndex + results.length,
+      updatedPosition
+    );
 
+    if (!pickFromLeft) {
+      rightSideSwaps += 1;
+    }
+    
+    const updatedOperationIndex = (
+      pickFromLeft
+        ? leftRealStartIndex
+        : rightRealStartIndex
+      ) + results.length;
+    
+    visualisation.createFrame({
+      updatedPositions: [...positioning],
+      operation: [updatedOperationIndex],
+    });
+
+    if (isFinalSort) {
+      visualisation.addOrderedItem(leftRealStartIndex + results.length);
+      visualisation.createFrame();
+    }
+
+    if (pickFromLeft) {
       results.push(leftArr[leftIndex]);
       leftIndex++;
     } else {
-      visualisation.createFrame({
-        comparison: [leftIndex + leftRealStartIndex],
-        operation: [rightIndex + rightRealStartIndex],
-      });
-
-      const positioning: number[] = visualisation.getCurrentPositioning();
-      changeElementPosition(
-        positioning,
-        leftRealStartIndex + results.length,
-        rightIndex + rightRealStartIndex
-      );
-      rightSideSwaps += 1;
-
-      visualisation.createFrame({
-        updatedPositions: [...positioning],
-        operation: [rightRealStartIndex + results.length],
-      });
-
-      if (isFinalSort) {
-        visualisation.addOrderedItem(leftRealStartIndex + results.length);
-        visualisation.createFrame();
-      }
-
       results.push(rightArr[rightIndex]);
       rightIndex++;
     }
