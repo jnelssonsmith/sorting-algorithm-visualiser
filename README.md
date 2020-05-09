@@ -4,7 +4,7 @@
 A project to help visualise different sorting algorithms and their relative performance.
 Users are able to choose between different sorting algorithms and pick between different array sizes and playback speeds.
 
-![Screenshot of the sorting algorithm visualiser](https://raw.githubusercontent.com/jnelssonsmith/sorting-algorithm-visualiser/master/screenshot.png "Screenshot of the sorting algorithm visualiser")
+![alt text](https://raw.githubusercontent.com/jnelssonsmith/sorting-algorithm-visualiser/blob/master/screenshot.png "Screenshot of the sorting algorithm visualiser")
 
 ## Demo
 You can check out the project here: 
