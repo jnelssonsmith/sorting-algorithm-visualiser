@@ -28,6 +28,9 @@ import ControlPanel from '../ConrolPanel';
 const MAX_ARR_NUM: number = 100;
 const MIN_ARR_NUM: number = 10;
 
+/**
+ * Contains the state for the visualisation runner and control pannel options component
+ */
 class SortVisualiser extends React.Component<
   SortVisualiserProps,
   SortVisualiserState

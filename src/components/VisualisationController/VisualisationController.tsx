@@ -19,6 +19,9 @@ import {
 } from './VisualisationController.types';
 import { Algorithms, AlgorithmDetail } from '../../types';
 
+/**
+ * Controls the sorting algo visualisation playback
+ */
 class VisualisationController extends React.Component<
   VisualisationControllerProps,
   VisualisationControllerState
